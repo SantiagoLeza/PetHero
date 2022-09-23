@@ -5,11 +5,12 @@ html, body{
     padding: 0;
     height: 100vh;
     width: 100vw;
+    user-select: none;
 }
 
 .background{
     position: fixed;
-    background: url("../assets/fondo perro.jpg");
+    background: url("../img/fondoPerro.jpg");
     background-size: 400px;
     height: 100%;
     width: 100%;
@@ -124,6 +125,7 @@ html, body{
 
 .contacto > *{
     text-align: right;
+    user-select: text;
 }
 
 @media screen and (max-width: 800px){

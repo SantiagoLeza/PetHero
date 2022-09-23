@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Hero</title>
-    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="<?php echo CSS_PATH . 'home.css'; ?>" type>
 </head>
 <body>
     <div class="background">
@@ -32,14 +32,14 @@
         <div class="header">
             <div class="logo">
                 <div>
-                    <img class="logo-icon" src="../assets/PetHero.png" alt="logo">
+                    <img class="logo-icon" src="<?php echo IMG_PATH . 'PetHero.png' ?>" alt="logo">
                     <p class="et">et</p>
                     <p class="ero">ero</p>
                 </div>
                 <h1>PET HERO</h1>
             </div>
             <div class="access">
-                <a href="./login.php">Acceder</a>
+                <a href="<?php echo FRONT_ROOT.'Home/Login'; ?>">Acceder</a>
             </div>
         </div>
     </div>
