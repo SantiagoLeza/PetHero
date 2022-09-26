@@ -1,7 +1,7 @@
 <?php
 
-if(isset($_GET['error'])){
-    echo "<script>alert('" . $_GET['error'] . "');</script>";
+if(!empty($message)){
+    echo "<script type='text/javascript'>alert('$message');</script>";
 }
 
 ?>
@@ -20,10 +20,10 @@ if(isset($_GET['error'])){
     <div class="inicioSesion">
         <h1>Inicio de sesión</h1>
 
-        <form action="../process/loginCheck.php" method="POST">
+        <form action="<?php echo FRONT_ROOT . 'User/Login' ?>" method="POST">
 
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <label for="mail">Email</label>
+            <input type="mail" id="mail" name="mail" required>
                 
             <label for="password">Contraseña</label>
             <input type="password" id="password" name="password" required>
@@ -32,7 +32,7 @@ if(isset($_GET['error'])){
                 
         </form>
 
-        <a class="registrarse" href="../process/signup.php"><p>Registrarse</p></a>
+        <a class="registrarse" href="../User/ShowSignupView"><p>Registrarse</p></a>
 
         <a class="recuperar-contra" href="#">Olvidaste tu contraseña?</a>
     </div>
