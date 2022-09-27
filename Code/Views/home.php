@@ -5,42 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Hero</title>
-    <link rel="stylesheet" href="<?php echo CSS_PATH . 'home.css'; ?>" type>
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>/home.css">
 </head>
 <body>
-    <div class="background">
-        <div class="content">
-            <div class="quienes-somos">
-                <h1>
-                    ¿Quienes somos?
-                </h1>
-                <p>
-                    Somos Pet Hero, una plataforma destinada a que no tengas que preocuparte por tu mascota. Si te vas de viaje o si estas ocupado. Nosotros te ayudamos. Nuestro objetivo es brindarte la mejor opción para que tu mascota tenga alguien que la cuide en tu ausencia.
-                </p>
-                <h2>
-                    ~Donde tus mascotas se sienten como en casa.~
-                </h2>
+    <div class="header">
+        <div class="logo">
+            <div>
+                <img class="logo-icon" src="<?php echo IMG_PATH . 'PetHero.png' ?>" alt="logo">
+                <p class="et">et</p>
+                <p class="ero">ero</p>
             </div>
-            <div class="contacto">
-                <h2>Contacto</h2>
-                <p>
-                    Mail: contacto@pethero.com <br>
-                    Telefono: 0-800-555-5555
-                </p>
-            </div>
+            <h1>PET HERO</h1>
         </div>
-        <div class="header">
-            <div class="logo">
-                <div>
-                    <img class="logo-icon" src="<?php echo IMG_PATH . 'PetHero.png' ?>" alt="logo">
-                    <p class="et">et</p>
-                    <p class="ero">ero</p>
-                </div>
-                <h1>PET HERO</h1>
+        <div class="options">
+            <div class="ubication">
+                <img src="<?php echo IMG_PATH . 'ubication.png' ?>" alt="location">
+                <p>Ubicacion</p>
             </div>
-            <div class="access">
-                <a href="<?php echo FRONT_ROOT.'Home/Login'; ?>">Acceder</a>
-            </div>
+            <button id='sidebar-bttn'>
+                <img src="<?php echo IMG_PATH.'options.png' ?>" alt="options">
+            </button>
+        </div>
+        <div id="sidebar" class="sidebar">
+            <button id="closeSidebar">
+                Cerrar
+            </button>
+        </div>
+    </div>
+    <script src="<?php echo JS_PATH.'sidebar.js' ?>" charset="utf-8"></script>
+
+    <div class="content">
+        <div class="filtros-container">
+            <button>Filtrar por fecha</button>
+            <button>Filtrar por estrellas</button>
+            <button>Filtrar por precio</button>
+            <button>Filtrar por ubicación</button>
+            <button>Filtrar por fecha</button>
         </div>
     </div>
 </body>

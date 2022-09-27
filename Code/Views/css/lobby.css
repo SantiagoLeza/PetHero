@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+}
+
+.background{
+    position: fixed;
+    background: url("../img/fondoPerro.jpg");
+    background-size: 400px;
+    height: 100%;
+    width: 100%;
+    background-repeat : repeat;
+    overflow: auto;
+}
+
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #FCAA55;
+    height: 125px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+
+.access > a{
+    margin-right: 40px;
+    color: black;
+    text-decoration: none;
+    font-size: x-large;
+}
+
+.logo{
+    margin-left: 20px;
+    height: 100%;
+    width: fit-content;
+    background-color: #FCAA55;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo > *{
+    margin-left: 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-icon{
+    height: 80%;
+    width: contain;
+}
+
+.et{
+    position: absolute;
+    bottom: -25px;
+    left: 80px;
+    font-family: 'Dancing Script', cursive;
+    font-size: xx-large;
+}
+
+.ero{
+    position: absolute;
+    bottom: -25px;
+    left: 175px;
+    font-family: 'Dancing Script', cursive;
+    font-size: xx-large;
+}
+
+.content{
+    height: fit-content;
+    width: 70%;
+    max-width: 800px;
+    background-color: #E0E0E0;
+    position: absolute;
+    top: 97px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    border: #FCAA55 3px solid;
+    box-shadow: 0 0 5px 2px #000;
+    display: flex;
+    flex-direction: column;
+}
+
+.quienes-somos{
+    margin: 50px;
+}
+
+.quienes-somos > h1{
+    text-align: center;
+    color: #FCAA55;
+    -webkit-text-stroke: #000 1.3px;
+    font-size: 3rem;
+}
+
+.quienes-somos > h2{
+    text-align: center;
+    color: #FCAA55;
+    -webkit-text-stroke: #000 1.1px;
+    font-size: 2rem;
+}
+
+.quienes-somos > p{
+    text-align: justify;
+    font-size: 1.5rem;
+    margin: 30px 0px;
+}
+
+.contacto{
+    margin: 50px;
+}
+
+.contacto > *{
+    text-align: right;
+    user-select: text;
+}
+
+@media screen and (max-width: 800px){
+    .content{
+        width: 90%;
+    }
+
+    .content > *{
+        margin: 30px;
+    }
+
+    .header{
+        height: 80px;
+    }
+
+    .logo{
+        margin-left: 10px;
+        height: 70%;
+    }
+
+    .logo > h1{
+        font-size: x-large;
+    }
+
+    .access > a{
+        font-size: larger;
+    }
+
+    .et{
+        left: 47px;
+        font-size: larger;
+        bottom: -5px;
+    }
+
+    .ero{
+        left: 90px;
+        font-size: larger;
+        bottom: -5px;
+    }
+}

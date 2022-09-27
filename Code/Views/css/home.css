@@ -1,21 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-
-html, body{
+html{
     margin: 0;
     padding: 0;
     height: 100vh;
     width: 100vw;
-    user-select: none;
 }
 
-.background{
-    position: fixed;
-    background: url("../img/fondoPerro.jpg");
-    background-size: 400px;
+body{
+    margin: 0;
+    padding: 0;
     height: 100%;
-    width: 100%;
-    background-repeat : repeat;
-    overflow: auto;
+    width: 100vw;
 }
 
 .header{
@@ -24,19 +18,12 @@ html, body{
     left: 0;
     background-color: #FCAA55;
     height: 125px;
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-}
-
-.access > a{
-    margin-right: 40px;
-    color: black;
-    text-decoration: none;
-    font-size: x-large;
 }
 
 .logo{
@@ -78,91 +65,89 @@ html, body{
     font-size: xx-large;
 }
 
+.options{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ubication{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.ubication > img{
+    height: 30px;
+    width: auto;
+    margin-right: 10px;
+}
+
+.options > button{
+    height: 100%;
+    width: auto;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    cursor: pointer;
+    margin-right: 25px;
+}
+
+.options > button > img{
+    height: 50%;
+    width: auto;
+}
+
+.filtros-container
+{
+    width: 15% ;
+    height: 50% ;
+}
+
 .content{
-    height: fit-content;
-    width: 70%;
-    max-width: 800px;
-    background-color: #E0E0E0;
     position: absolute;
-    top: 97px;
+    top: 125px;
     left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    border: #FCAA55 3px solid;
-    box-shadow: 0 0 5px 2px #000;
+    height: calc(100% - 125px);
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: -300px;
+    background-color: #C6C6C6;
+    height: 100vh;
+    width: 300px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    transition: all 300ms linear;
 }
 
-.quienes-somos{
-    margin: 50px;
+.show-sidebar{
+    right: 0;
 }
 
-.quienes-somos > h1{
-    text-align: center;
-    color: #FCAA55;
-    -webkit-text-stroke: #000 1.3px;
-    font-size: 3rem;
+@keyframes showSidebar{
+    0%{
+        background-color: #C6C6C6;
+    }
+    100%{
+        background-color: #FCAA55;
+    }
 }
 
-.quienes-somos > h2{
-    text-align: center;
-    color: #FCAA55;
-    -webkit-text-stroke: #000 1.1px;
-    font-size: 2rem;
-}
-
-.quienes-somos > p{
-    text-align: justify;
-    font-size: 1.5rem;
-    margin: 30px 0px;
-}
-
-.contacto{
-    margin: 50px;
-}
-
-.contacto > *{
-    text-align: right;
-    user-select: text;
-}
-
-@media screen and (max-width: 800px){
-    .content{
-        width: 90%;
-    }
-
-    .content > *{
-        margin: 30px;
-    }
-
-    .header{
-        height: 80px;
-    }
-
-    .logo{
-        margin-left: 10px;
-        height: 70%;
-    }
-
-    .logo > h1{
-        font-size: x-large;
-    }
-
-    .access > a{
-        font-size: larger;
-    }
-
-    .et{
-        left: 47px;
-        font-size: larger;
-        bottom: -5px;
-    }
-
-    .ero{
-        left: 90px;
-        font-size: larger;
-        bottom: -5px;
-    }
+.opacity
+{
+    background-color: rgba(0,0,0,0.5);
+    transition: all .5s ease;
 }

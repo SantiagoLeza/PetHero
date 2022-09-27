@@ -41,8 +41,7 @@ if(!empty($message)){
             <input type="date" id="birthDate" name="birthDate" required>
             
             <label for="adress">Domicilio</label>
-            <input type="adress" id="adress" name="adress" required>
-            
+            <input type="text" id="adress" name="adress" required>
 
             <button type="submit">Enviar</button>
         </form>
