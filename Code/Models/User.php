@@ -9,14 +9,16 @@ class User{
     private $phoneNumber;
     private $birthdate;
     private $adress;
+    private $dogs;
     
-    public function __construct($mail, $password, $name, $phoneNumber, $birthdate, $adress){
+    public function __construct($mail, $password, $name, $phoneNumber, $birthdate, $adress, $dogs){
         $this->mail = $mail;
         $this->password = $password;
         $this->name = $name;
         $this->phoneNumber = $phoneNumber;
         $this->birthdate = $birthdate;
         $this->adress = $adress;
+        $this->dogs = $dogs;
     }
 
     public function getMail(){
@@ -66,6 +68,13 @@ class User{
     public function setAdress($adress){
         $this->adress = $adress;
     }
+    
+    public function getDogs(){
+        return $this->dogs;
+    }
 
+    public function setDogs($dogs){
+        $this->dogs = $dogs;
+    }
     
 }

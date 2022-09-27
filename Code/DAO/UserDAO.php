@@ -45,6 +45,7 @@ class UserDAO{
             $valuesArray["phoneNumber"] = $user->getPhoneNumber();
             $valuesArray["birthdate"] = $user->getBirthdate();
             $valuesArray["adress"] = $user->getAdress();
+            $valuesArray["dogs"] = $user->getDogs();
             array_push($arrayToEncode, $valuesArray);
         }
 
@@ -61,7 +62,7 @@ class UserDAO{
             $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
             foreach($arrayToDecode as $valuesArray){
-                $user = new User($valuesArray["mail"], $valuesArray["password"], $valuesArray["name"], $valuesArray["phoneNumber"], $valuesArray["birthdate"], $valuesArray["adress"]);
+                $user = new User($valuesArray["mail"], $valuesArray["password"], $valuesArray["name"], $valuesArray["phoneNumber"], $valuesArray["birthdate"], $valuesArray["adress"], $valuesArray["dogs"]);
                 array_push($this->userList, $user);
             }
         }

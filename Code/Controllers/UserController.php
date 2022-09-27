@@ -17,7 +17,7 @@ class UserController{
     }
 
     public function Add($mail, $password, $name, $phoneNumber, $birthDate, $adress){
-        $user = new User($mail, $password, $name, $phoneNumber, $birthDate, $adress);
+        $user = new User($mail, $password, $name, $phoneNumber, $birthDate, $adress, array());
         $this->userDAO->Add($user);
         $this->ShowLoginView();
     }
@@ -27,7 +27,7 @@ class UserController{
         if($user != null){
             if($user->getPassword() == $password){
                 $_SESSION["loggedUser"] = $user;
-                header("location: ".FRONT_ROOT."Home/Index");
+                header("location: ".FRONT_ROOT."Home/Home");
             }
             else{
                 $message = "Contraseña incorrecta";
