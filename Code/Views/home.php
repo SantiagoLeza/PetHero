@@ -1,3 +1,13 @@
+<?php
+
+use DAO\GuardianDAO as GuardianDAO;
+
+$guardianDAO = new GuardianDAO();
+
+$guardianes = $guardianDAO->GetAll();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +25,36 @@
             <button>Filtrar por precio</button>
             <button>Filtrar por ubicación</button>
             <button>Filtrar por fecha</button>
+        </div>
+        <div>
+            <?php
+        
+            foreach($guardianes as $guardian){
+            ?>
+                <div>
+                    <p>
+                        <?php echo $guardian->getName(); ?>
+                    </p>
+                    <p>
+                        <?php echo $guardian->getFechaInicio(); ?>
+                    </p>
+                    <p>
+                        <?php echo $guardian->getFechaFin(); ?>
+                    </p>
+                    <p>
+                        <?php echo $guardian->getTamanio(); ?>
+                    </p>
+                    <p>
+                        <?php echo $guardian->getRating(); ?>
+                    </p>
+                    <p>
+                        <?php echo $guardian->getDescripcion(); ?>
+                    </p>
+                </div>
+            <?php
+            }
+
+            ?>
         </div>
     </div>
 
@@ -59,7 +99,7 @@
                     <img src="<?php echo IMG_PATH.'configIcon.png' ?>" alt="Profile">
                     <p>Perfil</p>
                 </a>
-                <a href="<?php echo FRONT_ROOT.'Guardian/Register' ?>">
+                <a href="<?php echo FRONT_ROOT.'Guardian/ShowRegisterView' ?>">
                     Queres ser guardian?
                 </a>
             </div>

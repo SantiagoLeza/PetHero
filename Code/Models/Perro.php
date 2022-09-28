@@ -16,7 +16,7 @@ class Perro{
         $this->tamanio = $tamanio;
         $this->raza = $raza;
         $this->edad = $edad;
-        $this->sexi = $sexo;
+        $this->sexo = $sexo;
     }
 
     public function getMailDuenio(){
@@ -60,7 +60,7 @@ class Perro{
     }
 
     public function getSexo(){
-        return $sexo->sexo;
+        return $this->sexo;
     }
 
     public function setSexo($sexo){

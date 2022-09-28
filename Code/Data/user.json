@@ -1,11 +1,20 @@
 [
     {
-        "mail": "santi.delga02@shemale.com",
-        "password": "123321",
+        "mail": "santi.delga02@gmail.com",
+        "password": "tukituki02",
         "name": "Santiago Delgado",
-        "phoneNumber": "123123123",
+        "phoneNumber": "2235555555",
         "birthdate": "2002-09-15",
-        "adress": "Flo",
+        "adress": "Florisbelo Acosta 3982, Mar del Plata",
+        "dogs": []
+    },
+    {
+        "mail": "santiago.leza@hotmail.com",
+        "password": "contrasenia",
+        "name": "Santiago Leza",
+        "phoneNumber": "2236349465",
+        "birthdate": "2003-01-27",
+        "adress": "Carballo 1915, Mar del Plata",
         "dogs": []
     }
 ]

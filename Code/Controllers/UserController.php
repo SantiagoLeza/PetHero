@@ -5,15 +5,30 @@ namespace Controllers;
 use DAO\UserDAO as UserDAO;
 use Models\User as User;
 
+use DAO\PerroDAO as PerroDAO;
+use Models\Perro as Perro;
+
 class UserController{
     private $userDAO;
+    private $perroDAO;
 
     public function __construct(){
         $this->userDAO = new UserDAO();
+        $this->perroDAO = new PerroDAO();
     }
 
     public function ShowSignupView(){
         require_once(VIEWS_PATH."signup.php");
+    }
+
+    public function PetsView(){
+        require_once(VIEWS_PATH."petsList.php");
+    }
+
+    public function AddDog($nombre, $tamanio, $raza, $edad, $sexo){
+        $perro = new Perro($_SESSION['loggedUser']->getMail(), $nombre, $tamanio, $raza, $edad, $sexo);
+        $this->perroDAO->Add($perro);
+        header("location: ".FRONT_ROOT."User/PetsView");
     }
 
     public function Add($mail, $password, $name, $phoneNumber, $birthDate, $adress){
@@ -54,7 +69,8 @@ class UserController{
         if($userDAO->GetByMail($mail) == null){
             if($password == $repeatPassword){
                 $this->Add($mail, $password, $name, $phoneNumber, $birthDate, $adress);
-                header("location: ".FRONT_ROOT."User/ShowLoginView");
+                $_SESSION["loggedUser"] = $userDAO->GetByMail($mail);
+                header("location: ".FRONT_ROOT."Home/Home");
             }
             else{
                 $message = "Las contraseñas no coinciden";

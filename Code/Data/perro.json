@@ -1,0 +1,26 @@
+[
+    {
+        "mailDuenio": "santiago.leza@hotmail.com",
+        "nombre": "Lola",
+        "tamanio": "grande",
+        "raza": "Boyero de Berna",
+        "edad": "5",
+        "sexo": "Hembra"
+    },
+    {
+        "mailDuenio": "santi.delga02@gmail.com",
+        "nombre": "Toby",
+        "tamanio": "Diminuto",
+        "raza": "Caniche",
+        "edad": "9",
+        "sexo": "Macho"
+    },
+    {
+        "mailDuenio": "santi.delga02@gmail.com",
+        "nombre": "Firulais",
+        "tamanio": "grande",
+        "raza": "Negro",
+        "edad": "150",
+        "sexo": "Dios"
+    }
+]
