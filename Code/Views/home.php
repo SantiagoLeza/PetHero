@@ -20,18 +20,26 @@ $guardianes = $guardianDAO->GetAll();
 <body>
     <div class="content">
         <div class="filtros-container">
-            <button>Filtrar por fecha</button>
-            <button>Filtrar por estrellas</button>
-            <button>Filtrar por precio</button>
-            <button>Filtrar por ubicación</button>
-            <button>Filtrar por fecha</button>
+            <a>Filtrar por fecha</a>
+            <a>Filtrar por estrellas</a>
+            <a>Filtrar por precio</a>
+            <a>Filtrar por ubicación</a>
         </div>
-        <div>
+        <div class='guardians-section'>
+            <!-- Esto no va, es para guiar hasta que este bonito -->
+            <div class='guardian-card'>
+                <p>Nombre</p>
+                <p>Fecha de inicio</p>
+                <p>Fecha de fin</p>
+                <p>Tamaño</p>
+                <p>Rating</p>
+                <p>Descripcion</p>
+            </div>
             <?php
         
             foreach($guardianes as $guardian){
             ?>
-                <div>
+                <div class='guardian-card'>
                     <p>
                         <?php echo $guardian->getName(); ?>
                     </p>
