@@ -14,7 +14,7 @@ body{
 
 body > p:first-child{
     margin-top: 150px;   
-}
+} 
 
 form{
     display: flex;
