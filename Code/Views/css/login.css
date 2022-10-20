@@ -76,8 +76,8 @@ form > *{
 
 .inicioSesion > form > input{
     margin-bottom: 20px;
-    height: 20px;
-    padding: 10px;
+    height: 40px;
+    padding: 0 10px;
     border: none;
     border-radius: 10px;
 }

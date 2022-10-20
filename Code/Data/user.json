@@ -16,5 +16,23 @@
         "birthdate": "2003-01-27",
         "adress": "Carballo 1915, Mar del Plata",
         "dogs": []
+    },
+    {
+        "mail": "s@.com",
+        "password": "123",
+        "name": "jorge",
+        "phoneNumber": "238472",
+        "birthdate": "2000-09-18",
+        "adress": "mi casa",
+        "dogs": []
+    },
+    {
+        "mail": "santidistefano12@gmail.com",
+        "password": "contrasenia",
+        "name": "Santiago Distefano",
+        "phoneNumber": "223594857649",
+        "birthdate": "2000-02-01",
+        "adress": "daireaux",
+        "dogs": []
     }
 ]

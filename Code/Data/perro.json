@@ -22,5 +22,21 @@
         "raza": "Negro",
         "edad": "150",
         "sexo": "Dios"
+    },
+    {
+        "mailDuenio": "s@.com",
+        "nombre": "Baltazar",
+        "tamanio": "pequenio",
+        "raza": "Cashe",
+        "edad": "28",
+        "sexo": "otro"
+    },
+    {
+        "mailDuenio": "santidistefano12@gmail.com",
+        "nombre": "Leia",
+        "tamanio": "mediano",
+        "raza": "Ovejero",
+        "edad": "1",
+        "sexo": "hembra"
     }
 ]

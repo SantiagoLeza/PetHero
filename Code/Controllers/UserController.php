@@ -66,20 +66,26 @@ class UserController{
 
     public function Signup($mail, $password, $repeatPassword, $name, $phoneNumber, $birthDate, $adress){
         $userDAO = new UserDAO();
-        if($userDAO->GetByMail($mail) == null){
-            if($password == $repeatPassword){
-                $this->Add($mail, $password, $name, $phoneNumber, $birthDate, $adress);
-                $_SESSION["loggedUser"] = $userDAO->GetByMail($mail);
-                header("location: ".FRONT_ROOT."Home/Home");
-            }
-            else{
-                $message = "Las contraseñas no coinciden";
-                require_once(VIEWS_PATH."signup.php");
-            }
+        if($birthDate > date("Y-m-d")){
+            $message = "Fecha de nacimiento invalida";
+            require_once(VIEWS_PATH."signup.php");
         }
         else{
-            $message = "El usuario ya existe";
-            require_once(VIEWS_PATH."signup.php");
+            if($userDAO->GetByMail($mail) == null){
+                if($password == $repeatPassword){
+                    $this->Add($mail, $password, $name, $phoneNumber, $birthDate, $adress);
+                    $_SESSION["loggedUser"] = $userDAO->GetByMail($mail);
+                    header("location: ".FRONT_ROOT."Home/Home");
+                }
+                else{
+                    $message = "Las contraseñas no coinciden";
+                    require_once(VIEWS_PATH."signup.php");
+                }
+            }
+            else{
+                $message = "El usuario ya existe";
+                require_once(VIEWS_PATH."signup.php");
+            }
         }
     }
 }

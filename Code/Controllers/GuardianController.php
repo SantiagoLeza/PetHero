@@ -12,12 +12,19 @@ use Models\Guardian as Guardian;
         $this->guardianDAO = new GuardianDAO();
     }
 
-    public function Home(){
+    public function Home()
+    {    
         require_once(VIEWS_PATH."guardian-home.php");
     }
 
     public function ShowRegisterView(){
-        require_once(VIEWS_PATH."register-guardian.php");
+        if($this->guardianDAO->isGuardian($_SESSION['loggedUser']->getMail())){
+            header("location: ".FRONT_ROOT."Guardian/Home");
+        }
+        else
+        {
+            require_once(VIEWS_PATH."register-guardian.php");
+        }
     }
 
     public function Add($initialDate, $finalDate, $tamanio, $address, $description){

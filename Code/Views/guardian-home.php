@@ -1,5 +1,7 @@
 <?php
 
+require_once(CONFIG_PATH."CheckLog.php");
+
 use DAO\GuardianDAO as GuardianDAO;
 use Models\Guardian as Guardian;
 
@@ -19,21 +21,16 @@ $guardian = $guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guardian</title>
-    <link rel="stylesheet" href="<?php echo CSS_PATH.'guardian-home.css' ?>style.css">
+    <link rel="stylesheet" href="<?php echo CSS_PATH.'guardian-home.css' ?>">
 </head>
 <body>
-    hola sos guardian
-
     <p>
         <?php echo $guardian->getName(); ?>
     </p>
     <p>
-        <?php echo $guardian->getFechaInicio(); ?>
+        <?php echo $guardian->getFechaInicio() . ' | ' . $guardian->getFechaFin(); ?>
     </p>
-    <p>
-        <?php echo $guardian->getFechaFin(); ?>
-    </p>
-
+    
     <form action="<?php echo FRONT_ROOT.'Guardian/ActualizarFechas' ?>" method="post">
         <div>
             <label for="fechaInicio">Fecha de inicio</label>
@@ -45,5 +42,7 @@ $guardian = $guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
         </div>
         <button type="submit">Actualizar</button>
     </form>
+    <a href="<?php echo FRONT_ROOT.'Home/Home' ?>">Volver</a>
+    <?php require_once(VIEWS_PATH."sidebar.php"); ?>
 </body>
 </html>
