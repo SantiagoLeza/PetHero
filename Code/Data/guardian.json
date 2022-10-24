@@ -46,5 +46,21 @@
         "tamanio": "pequenio-mediano-grande",
         "direccionCuidado": "Daireaux",
         "descripcion": "Soy un heroe"
+    },
+    {
+        "mail": "test@gmail.com",
+        "password": "123456",
+        "name": "Pepe Argento",
+        "phoneNumber": "2235768904",
+        "birthdate": "2013-06-13",
+        "adress": "Mi casa 1231, ciudad",
+        "dogs": null,
+        "rating": 0,
+        "fechaInicio": "2022-10-27",
+        "fechaFin": "2022-11-10",
+        "saldo": 0,
+        "tamanio": "pequenio-mediano",
+        "direccionCuidado": "Mi casa",
+        "descripcion": "Probando"
     }
 ]

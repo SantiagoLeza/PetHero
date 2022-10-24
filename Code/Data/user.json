@@ -34,5 +34,23 @@
         "birthdate": "2000-02-01",
         "adress": "daireaux",
         "dogs": []
+    },
+    {
+        "mail": "test@gmail.com",
+        "password": "123456",
+        "name": "Pepe Argento",
+        "phoneNumber": "2235768904",
+        "birthdate": "2013-06-13",
+        "adress": "Mi casa 1231, ciudad",
+        "dogs": []
+    },
+    {
+        "mail": "test2@gmail.com",
+        "password": "123456",
+        "name": "Moni Argento",
+        "phoneNumber": "2235765432",
+        "birthdate": "2022-10-11",
+        "adress": "Casa",
+        "dogs": []
     }
 ]

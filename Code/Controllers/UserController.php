@@ -5,16 +5,16 @@ namespace Controllers;
 use DAO\UserDAO as UserDAO;
 use Models\User as User;
 
-use DAO\PerroDAO as PerroDAO;
-use Models\Perro as Perro;
+use DAO\AnimalDAO as AnimalDAO;
+use Models\Animal as Animal;
 
 class UserController{
     private $userDAO;
-    private $perroDAO;
+    private $AnimalDAO;
 
     public function __construct(){
         $this->userDAO = new UserDAO();
-        $this->perroDAO = new PerroDAO();
+        $this->AnimalDAO = new AnimalDAO();
     }
 
     public function ShowSignupView(){
@@ -25,9 +25,9 @@ class UserController{
         require_once(VIEWS_PATH."petsList.php");
     }
 
-    public function AddDog($nombre, $tamanio, $raza, $edad, $sexo){
-        $perro = new Perro($_SESSION['loggedUser']->getMail(), $nombre, $tamanio, $raza, $edad, $sexo);
-        $this->perroDAO->Add($perro);
+    public function AddAnimal($tipo, $nombre, $tamanio, $raza, $edad, $sexo){
+        $Animal = new Animal($_SESSION['loggedUser']->getMail(), $tipo, $nombre, $tamanio, $raza, $edad, $sexo);
+        $this->AnimalDAO->Add($Animal);
         header("location: ".FRONT_ROOT."User/PetsView");
     }
 

@@ -15,3 +15,9 @@ openButton.addEventListener("click", function() {
     document.body.classList.toggle('opacity');
     blindfold.classList.add("show-blindfold");
 });
+
+blindfold.addEventListener("click", function() {
+    sidebar.classList.remove("show-sidebar");
+    document.body.classList.toggle('opacity');
+    blindfold.classList.remove("show-blindfold");
+});

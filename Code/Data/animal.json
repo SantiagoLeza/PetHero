@@ -1,6 +1,7 @@
 [
     {
         "mailDuenio": "santiago.leza@hotmail.com",
+        "tipo": "perro",
         "nombre": "Lola",
         "tamanio": "grande",
         "raza": "Boyero de Berna",
@@ -9,6 +10,7 @@
     },
     {
         "mailDuenio": "santi.delga02@gmail.com",
+        "tipo": "perro",
         "nombre": "Toby",
         "tamanio": "Diminuto",
         "raza": "Caniche",
@@ -17,6 +19,7 @@
     },
     {
         "mailDuenio": "santi.delga02@gmail.com",
+        "tipo": "perro",
         "nombre": "Firulais",
         "tamanio": "grande",
         "raza": "Negro",
@@ -25,6 +28,7 @@
     },
     {
         "mailDuenio": "s@.com",
+        "tipo": "perro",
         "nombre": "Baltazar",
         "tamanio": "pequenio",
         "raza": "Cashe",
@@ -33,10 +37,20 @@
     },
     {
         "mailDuenio": "santidistefano12@gmail.com",
+        "tipo": "perro",
         "nombre": "Leia",
         "tamanio": "mediano",
         "raza": "Ovejero",
         "edad": "1",
         "sexo": "hembra"
+    },
+    {
+        "mailDuenio": "test2@gmail.com",
+        "tipo": "perro",
+        "nombre": "Fatiga",
+        "tamanio": "mediano",
+        "raza": "Calle",
+        "edad": "7",
+        "sexo": "macho"
     }
 ]

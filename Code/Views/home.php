@@ -22,10 +22,10 @@ require_once(CONFIG_PATH."CheckLog.php");
 <body>
     <div class="content">
         <div class="filtros-container">
-            <a>Filtrar por fecha</a>
-            <a>Filtrar por estrellas</a>
-            <a>Filtrar por precio</a>
-            <a>Filtrar por ubicación</a>
+            <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por fecha</a>
+            <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por estrellas</a>
+            <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por precio</a>
+            <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por ubicación</a>
         </div>
         <div class='guardians-section'>
             <!-- Esto no va, es para guiar hasta que este bonito -->

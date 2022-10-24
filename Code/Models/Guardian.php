@@ -31,6 +31,10 @@ class Guardian extends User
         $this->rating = $rating;
     }
 
+    function getPrecio(){
+        return 0;
+    }
+
     function getFechaInicio(){
         return $this->fechaInicio;
     }

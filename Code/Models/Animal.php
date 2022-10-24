@@ -2,16 +2,19 @@
 
 namespace Models;
 
-class Perro{
+class Animal
+{
     private $mailDuenio;
+    private $tipo;
     private $nombre;
     private $tamanio;
     private $raza;
     private $edad;
     private $sexo;
 
-    public function __construct($mailDuenio, $nombre, $tamanio, $raza, $edad, $sexo){
+    public function __construct($mailDuenio, $tipo, $nombre, $tamanio, $raza, $edad, $sexo){
         $this->mailDuenio = $mailDuenio;
+        $this->tipo = $tipo;
         $this->nombre = $nombre;
         $this->tamanio = $tamanio;
         $this->raza = $raza;
@@ -25,6 +28,14 @@ class Perro{
 
     public function setMailDuenio($mailDuenio){
         $this->mailDuenio = $mailDuenio;
+    }
+
+    public function getTipo(){
+        return $this->tipo;
+    }
+
+    public function setTipo($tipo){
+        $this->tipo = $tipo;
     }
 
     public function getNombre(){

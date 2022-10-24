@@ -10,7 +10,7 @@ html, body{
 
 .background{
     position: fixed;
-    background: url("../img/fondoPerro.jpg");
+    background: url("../img/fondoAnimal.jpg");
     background-size: 400px;
     height: 100%;
     width: 100%;

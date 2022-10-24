@@ -112,5 +112,16 @@ class GuardianDAO{
         }
         return $guardian;
     }
+
+    public function getByDates($inicio, $fin){
+        $this->retrieveData();
+        $guardianList = array();
+        foreach($this->guardianList as $guardian){
+            if($guardian->getFechaInicio() >= $inicio && $guardian->getFechaFin() <= $fin){
+                array_push($guardianList, $guardian);
+            }
+        }
+        return $guardianList;
+    }
 }
 ?>

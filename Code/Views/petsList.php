@@ -16,7 +16,7 @@ require_once(CONFIG_PATH."CheckLog.php");
         <?php
             $user = $_SESSION["loggedUser"];
 
-            use DAO\PerroDAO as PetDAO;
+            use DAO\AnimalDAO as PetDAO;
             use Models\Pet as Pet;
 
             $petDAO = new PetDAO();
@@ -25,7 +25,10 @@ require_once(CONFIG_PATH."CheckLog.php");
             foreach($pets as $pet){
                 if($pet->getMailDuenio() == $user->getMail()){
                     echo "<div class='pet-card'>";
-                    echo "<img src='".IMG_PATH."/DefaultUserImg.png' alt=''>";
+                    echo "<div class='pet-image'>";
+                    echo "<img src='".IMG_PATH."/DefaultUserImg.png' alt='' class='foto'>";
+                    echo "<img src='".IMG_PATH."/". $pet->getTipo() .".png' alt='' class='icono logo-". $pet->getTipo() ."'>";
+                    echo "</div>";
                     echo "<p>".$pet->getNombre()."</p>";
                     echo "<div><p>".$pet->getRaza()."</p>";
                     echo "<p>".$pet->getEdad()." años</p></div>";
@@ -38,7 +41,7 @@ require_once(CONFIG_PATH."CheckLog.php");
         Agregar Mascota
     </button>
     <div class="formMascota" id="formMascota">
-        <form action="<?php echo FRONT_ROOT.'User/AddDog' ?>" method="post">
+        <form action="<?php echo FRONT_ROOT.'User/AddAnimal' ?>" method="post">
             <button class="closeForm" id="closeForm" type="button">
                 X
             </button>
@@ -55,17 +58,22 @@ require_once(CONFIG_PATH."CheckLog.php");
                 <input type="number" name="edad" id="edad" min='0' required>
             </div>
             <div class="radios">
-                <label >Tamaño</label>
-                <div>
-                    <input type="radio" name="tamanio" id="pequenio" value="pequenio" required>
-                    <label for="pequenio">Pequeño</label>
+                <label for="tipo">Tipo</label>
 
-                    <input type="radio" name="tamanio" id="mediano" value="mediano" required>
-                    <label for="mediano">Mediano</label>
-                    
-                    <input type="radio" name="tamanio" id="grande" value="grande" required>
-                    <label for="grande">Grande</label>
+                <div>
+                    <input type="radio" name="tipo" id="perro" value="perro" required checked>
+                    <label for="perro">Perro</label>
+                    <input type="radio" name="tipo" id="gato" value="gato" required>
+                    <label for="gato">Gato</label>
                 </div>
+            </div>
+            <div class="select" id="div-tamanio">
+                <label >Tamaño</label>
+                <select name="tamanio" id="tamanio">
+                    <option value="chico" checked>Chico</option>
+                    <option value="mediano">Mediano</option>
+                    <option value="grande">Grande</option>
+                </select>
             </div>
             <div class="radios">
                 <label for="sexo">Sexo</label>
@@ -75,8 +83,6 @@ require_once(CONFIG_PATH."CheckLog.php");
                     <label for="macho">Macho</label>
                     <input type="radio" name="sexo" id="hembra" value="hembra" required>
                     <label for="hembra">Hembra</label>
-                    <input type="radio" name="sexo" id="otro" value="otro" required>
-                    <label for="otro">Otro</label>
                 </div>
             </div>
 
