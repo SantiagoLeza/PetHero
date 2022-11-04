@@ -3,82 +3,121 @@
 namespace DAO;
 
 use Models\User as User;
+use DAO\Connection as Connection;
+use DAO\CiudadDAO as CiudadDAO;
 
 class UserDAO{
-    private $userList = array();
-    private $fileName;
+    private $connection;
 
     public function __construct(){
-        $this->fileName = dirname(__DIR__)."/Data/user.json";
+        $this->connection = Connection::getInstance();
     }
 
-    public function Add(User $user){
-        $this->RetrieveData();
-        array_push($this->userList, $user);
-        $this->SaveData();
+    public function Add($name, $lastName, $email, $password, $phone, $address, $city, $birthdate){
+        $query = "INSERT INTO Usuarios (nombre, apellido, mail, contrasenia, numeroTelefono, direccion, idCiudad, fechaDeNacimiento) VALUES (:name, :lastName, :email, :password, :phone, :address, :idCiudad, :birthdate);";
+
+        $ciudadDAO = new CiudadDAO();
+        $idCiudad = $ciudadDAO->getCiudadByName($city)['idCiudades'];
+
+        try{
+            $connection = Connection::getInstance();
+            $connection->ExecuteNonQuery($query, array(
+                "name" => $name,
+                "lastName" => $lastName,
+                "email" => $email,
+                "password" => $password,
+                "phone" => $phone,
+                "address" => $address,
+                "idCiudad" => $idCiudad,
+                "birthdate" => $birthdate
+            ));
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
     }
+
+    
 
     public function GetAll(){
-        $this->RetrieveData();
-        return $this->userList;
-    }
-
-    public function GetByMail($mail){
-        $this->RetrieveData();
-        $user = null;
-        foreach($this->userList as $userL){
-            if($userL->getMail() == $mail){
-                $user = $userL;
-                break;
-            }
-        }
-        return $user;
-    }
-
-    private function SaveData(){
-        $arrayToEncode = array();
-
-        foreach($this->userList as $user){
-            $valuesArray["mail"] = $user->getMail();
-            $valuesArray["password"] = $user->getPassword();
-            $valuesArray["name"] = $user->getName();
-            $valuesArray["phoneNumber"] = $user->getPhoneNumber();
-            $valuesArray["birthdate"] = $user->getBirthdate();
-            $valuesArray["adress"] = $user->getAdress();
-            $valuesArray["dogs"] = $user->getDogs();
-            array_push($arrayToEncode, $valuesArray);
-        }
-
-        $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-        file_put_contents($this->fileName, $jsonContent);
-    }
-
-    private function RetrieveData(){
-        $this->userList = array();
-
-        if(file_exists($this->fileName)){
-            $jsonContent = file_get_contents($this->fileName);
-
-            $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
-
-            foreach($arrayToDecode as $valuesArray){
-                $user = new User($valuesArray["mail"], $valuesArray["password"], $valuesArray["name"], $valuesArray["phoneNumber"], $valuesArray["birthdate"], $valuesArray["adress"], $valuesArray["dogs"]);
-                array_push($this->userList, $user);
-            }
-        }
-    }
-
-    public function Update(User $user){
-        $this->RetrieveData();
-        $userList = array();
-        foreach($this->userList as $value){
-            if($value->getMail() == $user->getMail()){
+        try{
+            $ciudadDAO = new CiudadDAO();
+            $userList = array();
+            $query = "SELECT * FROM Usuarios";
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            foreach($resultSet as $row){
+                $user = new User(
+                    $row["idUsuario"],
+                    $row["mail"],
+                    $row["contrasenia"],
+                    $row["nombre"],
+                    $row["apellido"],
+                    $row["numeroTelefono"],
+                    $row["fechaDeNacimiento"],
+                    $resultSet[0]["idCiudad"],
+                $resultSet[0]["direccion"]
+                );
                 array_push($userList, $user);
-            }else{
-                array_push($userList, $value);
             }
+            return $userList;
         }
-        $this->userList = $userList;
-        $this->SaveData();
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
+
+    public function getByMail($email){
+        try{
+            $ciudadDAO = new CiudadDAO();
+            $query = "SELECT * FROM Usuarios WHERE mail = :email";
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, array("email" => $email));
+            if(count($resultSet) == 0){
+                return null;
+            }
+            $user = new User(
+                $resultSet[0]["idUsuario"],
+                $resultSet[0]["mail"],
+                $resultSet[0]["contrasenia"],
+                $resultSet[0]["nombre"],
+                $resultSet[0]["apellido"],
+                $resultSet[0]["numeroTelefono"],
+                $resultSet[0]["fechaDeNacimiento"],
+                $resultSet[0]["idCiudad"],
+                $resultSet[0]["direccion"]
+            );
+            return $user;
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
+
+    public function getById($id){
+        try{
+            $ciudadDAO = new CiudadDAO();
+            $query = "SELECT * FROM Usuarios WHERE idUsuario = :id";
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, array("id" => $id));
+            if(count($resultSet) == 0){
+                return null;
+            }
+            $user = new User(
+                $resultSet[0]["idUsuario"],
+                $resultSet[0]["mail"],
+                $resultSet[0]["contrasenia"],
+                $resultSet[0]["nombre"],
+                $resultSet[0]["apellido"],
+                $resultSet[0]["numeroTelefono"],
+                $resultSet[0]["fechaDeNacimiento"],
+                $resultSet[0]["idCiudad"],
+                $resultSet[0]["direccion"]
+            );
+            return $user;
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
     }
 }

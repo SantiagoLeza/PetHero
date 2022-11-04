@@ -14,18 +14,27 @@ if(!isset($guardians)){
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/guardians-list.css">
 </head>
 <body>
-    <table>
+    <table style="margin-top:150px;">
         <?php
         foreach($guardians as $guardian){
         ?>
-            <tr>
-                <td style="padding:20px;"><?php echo $guardian->getName(); ?></td>
-                <td style="padding:20px;"><?php echo $guardian->getFechaInicio(); ?></td>
-                <td style="padding:20px;"><?php echo $guardian->getFechaFin(); ?></td>
-                <td style="padding:20px;"><?php echo $guardian->getTamanio(); ?></td>
-                <td style="padding:20px;"><?php echo $guardian->getRating(); ?></td>
-                <td style="padding:20px;"><?php echo $guardian->getDescripcion(); ?></td>
-            </tr>
+            <div class="card">
+                <div class="card-header">
+                    <h2><?php echo $guardian->getName(); ?></h2>
+                </div>
+                <div class="card-body">
+                    <p><?php echo $guardian->getDescripcion(); ?></p>
+                </div>
+                <div class="card-footer">
+                    <p><?php echo $guardian->getFechaInicio(); ?></p>
+                    <p><?php echo $guardian->getFechaFin(); ?></p>
+                    <p><?php echo $guardian->getTamanio(); ?></p>
+                    <p><?php echo $guardian->getRating(); ?></p>
+                </div>
+                <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianInfo/'. $guardian->getIdGuardian(). '/' . $fechaInicio . '/' . $fechaFin ?>" class="verMas">
+                    +
+                </a>
+            </div>
         <?php } ?>
     </table>
 

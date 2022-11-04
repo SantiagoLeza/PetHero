@@ -2,79 +2,126 @@
 
 namespace Models;
 
+use DAO\AnimalDAO as AnimalDAO;
+
 class User{
+    private $idUsuario;
     private $mail;
     private $password;
     private $name;
+    private $surname;
     private $phoneNumber;
     private $birthdate;
-    private $adress;
-    private $dogs;
-    
-    public function __construct($mail, $password, $name, $phoneNumber, $birthdate, $adress, $dogs){
+    private $idCiudad;
+    private $direccion;
+
+    public function __construct($idUsuario, $mail, $password, $name, $surname, $phoneNumber, $birthdate, $idCiudad, $direccion)
+    {
+        $this->idUsuario = $idUsuario;
         $this->mail = $mail;
         $this->password = $password;
         $this->name = $name;
+        $this->surname = $surname;
         $this->phoneNumber = $phoneNumber;
         $this->birthdate = $birthdate;
-        $this->adress = $adress;
-        $this->dogs = $dogs;
+        $this->idCiudad = $idCiudad;
+        $this->direccion = $direccion;
     }
 
-    public function getMail(){
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+
+    public function getMail()
+    {
         return $this->mail;
     }
 
-    public function setMail($mail){
+    public function setMail($mail)
+    {
         $this->mail = $mail;
     }
 
-    public function getPassword(){
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function setPassword($password){
+    public function setPassword($password)
+    {
         $this->password = $password;
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function setName($name){
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
-    public function getPhoneNumber(){
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+    }
+
+    public function getPhoneNumber()
+    {
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber($phoneNumber){
+    public function setPhoneNumber($phoneNumber)
+    {
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function getBirthdate(){
+    public function getBirthdate()
+    {
         return $this->birthdate;
     }
 
-    public function setBirthdate($birthdate){
+    public function setBirthdate($birthdate)
+    {
         $this->birthdate = $birthdate;
     }
 
-    public function getAdress(){
-        return $this->adress;
+    public function getIdCiudad()
+    {
+        return $this->idCiudad;
     }
 
-    public function setAdress($adress){
-        $this->adress = $adress;
-    }
-    
-    public function getDogs(){
-        return $this->dogs;
+    public function setIdCiudad($idCiudad)
+    {
+        $this->idCiudad = $idCiudad;
     }
 
-    public function setDogs($dogs){
-        $this->dogs = $dogs;
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+    }
+
+    public function getMascotas(){
+        $animalDAO = new AnimalDAO();
+        $pets = $animalDAO->GetAnimalesPorUsuario($this->idUsuario);
+        return $pets;
     }
     
 }

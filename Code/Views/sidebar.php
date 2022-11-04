@@ -11,7 +11,7 @@
     <div class="options">
         <div class="ubication">
             <img src="<?php echo IMG_PATH . 'ubication.png' ?>" alt="location">
-            <p><?php echo explode(',', $_SESSION['loggedUser']->getAdress())[0] ?></p> 
+            <p><?php echo $_SESSION['loggedUser']->getDireccion() ?></p> 
         </div>
         <button id='sidebar-bttn'>
             <img src="<?php echo IMG_PATH.'options.png' ?>" alt="options">

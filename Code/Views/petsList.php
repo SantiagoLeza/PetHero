@@ -19,14 +19,20 @@ require_once(CONFIG_PATH."CheckLog.php");
             use DAO\AnimalDAO as PetDAO;
             use Models\Pet as Pet;
 
+            use DAO\ArchivosDAO as ArchivosDAO;
+
             $petDAO = new PetDAO();
             $pets = $petDAO->getAll();
 
+            $archivosDAO = new ArchivosDAO();
+
             foreach($pets as $pet){
-                if($pet->getMailDuenio() == $user->getMail()){
+                if($pet->getIdDuenio() == $user->getIdUsuario()){
                     echo "<div class='pet-card'>";
                     echo "<div class='pet-image'>";
-                    echo "<img src='".IMG_PATH."/DefaultUserImg.png' alt='' class='foto'>";
+                    ?>
+                    <img src="<?php echo ANIMAL_IMG_PATH.'ImagenAnimal/'.$archivosDAO->getImagenAnimal($pet->getIdImagenPerfil()); ?>" alt="" class="imagenAnimal">
+                    <?php
                     echo "<img src='".IMG_PATH."/". $pet->getTipo() .".png' alt='' class='icono logo-". $pet->getTipo() ."'>";
                     echo "</div>";
                     echo "<p>".$pet->getNombre()."</p>";
@@ -41,7 +47,7 @@ require_once(CONFIG_PATH."CheckLog.php");
         Agregar Mascota
     </button>
     <div class="formMascota" id="formMascota">
-        <form action="<?php echo FRONT_ROOT.'User/AddAnimal' ?>" method="post">
+        <form  enctype='multipart/form-data' action="<?php echo FRONT_ROOT.'User/AddAnimal' ?>" method="post">
             <button class="closeForm" id="closeForm" type="button">
                 X
             </button>
@@ -50,30 +56,43 @@ require_once(CONFIG_PATH."CheckLog.php");
                 <input type="text" name="nombre" id="nombre" required>
             </div>
             <div>
-                <label for="raza">Raza</label>
-                <input type="text" name="raza" id="raza" required>
-            </div>
-            <div>
                 <label for="edad">Edad</label>
                 <input type="number" name="edad" id="edad" min='0' required>
             </div>
-            <div class="radios">
-                <label for="tipo">Tipo</label>
-
+            <div class="tipoAnimal">
                 <div>
-                    <input type="radio" name="tipo" id="perro" value="perro" required checked>
-                    <label for="perro">Perro</label>
-                    <input type="radio" name="tipo" id="gato" value="gato" required>
-                    <label for="gato">Gato</label>
+                    <select id="selectTipo">
+                        <option value="perro" id="perro">Perro</option>
+                        <option value="gato" id="gato">Gato</option>
+                    </select>
                 </div>
-            </div>
-            <div class="select" id="div-tamanio">
-                <label >Tamaño</label>
-                <select name="tamanio" id="tamanio">
-                    <option value="chico" checked>Chico</option>
-                    <option value="mediano">Mediano</option>
-                    <option value="grande">Grande</option>
-                </select>
+                <div>
+                    <label for="raza">Raza</label>
+                    <div id="selectContainer">
+                        <select name="raza" id="razaPerro" class="selectAnimal">
+                            <?php
+                                $razas = $petDAO->GetRazas();
+            
+                                foreach($razas as $r){
+                                    if($r['tipo'] == "perro"){
+                                        echo "<option value='".$r['raza']."'>".$r['raza']."</option>";
+                                    }
+                                }
+                            ?>
+                        </select>
+                        <select name="raza" id="razaGato" class="selectAnimal">
+                            <?php
+                                $razas = $petDAO->GetRazas();
+            
+                                foreach($razas as $r){
+                                    if($r['tipo'] == "gato"){
+                                        echo "<option value='".$r['raza']."'>".$r['raza']."</option>";
+                                    }
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="radios">
                 <label for="sexo">Sexo</label>
@@ -84,6 +103,19 @@ require_once(CONFIG_PATH."CheckLog.php");
                     <input type="radio" name="sexo" id="hembra" value="hembra" required>
                     <label for="hembra">Hembra</label>
                 </div>
+            </div>
+            <div>
+                <label>Archivos</label>
+                <input type="file" name="imagenAnimal" id="imagenAnimal" required
+                accept=".jpg, .png, .jpeg, image/*">
+                <input type="file" name="imagenCarta" id="imagenCarta"
+                accept=".jpg, .png, .jpeg, image/*" required>
+                <input type="file" name="video"
+                accept="video/*">
+            </div>
+            <div>
+                <label for="observaciones">Observaciones</label>
+                <input type="text" name="observaciones" id="observaciones">
             </div>
 
             <button type="submit" class="addButton">Agregar</button>

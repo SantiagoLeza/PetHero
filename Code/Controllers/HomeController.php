@@ -70,6 +70,11 @@ class HomeController{
 
         require_once(VIEWS_PATH."guardians-list.php");
     }
+
+    public function ShowGuardianInfo($id, $fechaInicio ='', $fechaFin = ''){
+        $guardian = $this->guardianDAO->getById($id);
+        require_once(VIEWS_PATH."guardian-info.php");
+    }
 }
 
 ?>

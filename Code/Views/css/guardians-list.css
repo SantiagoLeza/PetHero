@@ -6,3 +6,40 @@ html, body{
 body > *:first-child{
     margin-top: 150px;
 }
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card{
+    width: 60%;
+    min-width: fit-content;
+    height: 150px;
+    background-color: #FCAA55;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.verMas{
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 3rem;
+    font-weight: bolder;
+    text-decoration: none;
+    color: black;
+}

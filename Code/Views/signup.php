@@ -4,6 +4,8 @@ if(!empty($message)){
     echo "<script type='text/javascript'>alert('$message');</script>";
 }
 
+use DAO\CiudadDAO as CiudadDAO;
+
 ?>
 
 <!DOCTYPE html>
@@ -31,14 +33,29 @@ if(!empty($message)){
             <label for="repeatPassword">Repetir Contraseña</label>
             <input type="password" id="repeatPassword" name="repeatPassword" required>
             
-            <label for="name">Nombre y apellido</label>
+            <label for="name">Nombre</label>
             <input type="name" id="name" name="name" required>
+            
+            <label for="lastname">Apellido</label>
+            <input type="lastname" id="lastname" name="lastname" required>
             
             <label for="phoneNumber">Numero de telefono</label>
             <input type="number" id="phoneNumber" name="phoneNumber" required>
             
             <label for="birthDate">Fecha de nacimiento</label>
             <input type="date" id="birthDate" name="birthDate" required>
+            
+            <label for="city">Ciudad</label>
+            <select name="city" id="city">
+                <?php    
+                $ciudadDAO = new CiudadDAO();
+                $cityList = $ciudadDAO->GetAll();
+                
+                foreach($cityList as $city){
+                    echo "<option value='".$city['nombre']."'>".$city['nombre']."</option>";
+                }
+                ?>
+            </select>
             
             <label for="adress">Domicilio</label>
             <input type="text" id="adress" name="adress" required>

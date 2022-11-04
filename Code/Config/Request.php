@@ -46,12 +46,8 @@ namespace Config;
             
             if($_FILES)
             {
-                unset($this->parameters["button"]);
-                
-                foreach($_FILES as $file)
-                {
-                    array_push($this->parameters, $file);
-                }
+                foreach($_FILES as $key => $value)
+                    $this->parameters[$key] = $value;
             }
         }
 

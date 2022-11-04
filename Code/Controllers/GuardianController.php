@@ -18,7 +18,7 @@ use Models\Guardian as Guardian;
     }
 
     public function ShowRegisterView(){
-        if($this->guardianDAO->isGuardian($_SESSION['loggedUser']->getMail())){
+        if($this->guardianDAO->isGuardian($_SESSION['loggedUser']->getIdUsuario())){
             header("location: ".FRONT_ROOT."Guardian/Home");
         }
         else
@@ -28,10 +28,16 @@ use Models\Guardian as Guardian;
     }
 
     public function Add($initialDate, $finalDate, $tamanio, $address, $description){
+        $tamanios = implode(", ", $tamanio);
         $user = $_SESSION['loggedUser'];
-        $guardian = new Guardian($user->getMail(),
-        $user->getPassword(), $user->getName(), $user->getPhoneNumber(), $user->getBirthdate(), $user->getAdress(), null, 0,  $initialDate, $finalDate, 0, implode('-', $tamanio), $address, $description);
-        $this->guardianDAO->Add($guardian);
+        $this->guardianDAO->Add(
+            $user->getIdUsuario(),
+            $initialDate,
+            $finalDate,
+            $tamanios,
+            $address,
+            $description
+        );
         header("location: ".FRONT_ROOT."Guardian/Home");
     }
 

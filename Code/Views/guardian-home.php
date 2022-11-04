@@ -7,7 +7,7 @@ use Models\Guardian as Guardian;
 
 $guardianDAO = new GuardianDAO();
 
-if(!$guardianDAO->isGuardian($_SESSION['loggedUser']->getMail())){
+if(!$guardianDAO->isGuardian($_SESSION['loggedUser']->getIdUsuario())){
     header("location: ".FRONT_ROOT."Home/Home");
 }
 

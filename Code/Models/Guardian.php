@@ -2,8 +2,13 @@
 
 namespace Models;
 
+use DAO\UserDAO as UserDAO;
+
 class Guardian extends User
 {
+    private $idUsuario;
+    private $user;
+    private $idGuardian;
     private $rating;
     private $fechaInicio;
     private $fechaFin;
@@ -12,8 +17,13 @@ class Guardian extends User
     private $direccionCuidado;
     private $descripcion;
 
-    public function __construct($mail, $password, $name, $phoneNumber, $birthdate, $adress, $dogs,$rating, $fechaInicio, $fechaFin, $saldo,$tamanio, $direccionCuidado, $descripcion){
-        parent::__construct($mail, $password, $name, $phoneNumber, $birthdate, $adress, $dogs);
+    public function __construct($idGuardian, $idUsuario, $rating, $fechaInicio, $fechaFin, $saldo,$tamanio, $direccionCuidado, $descripcion){
+
+        $userDAO = new UserDAO();
+
+        $this->idUsuario = $idUsuario;
+        $this->user = $userDAO->getById($idUsuario);
+        $this->idGuardian = $idGuardian;
         $this->rating = $rating;
         $this->fechaInicio = $fechaInicio;
         $this->fechaFin = $fechaFin;
@@ -21,6 +31,14 @@ class Guardian extends User
         $this->tamanio = $tamanio;
         $this->direccionCuidado = $direccionCuidado;
         $this->descripcion = $descripcion;
+    }
+
+    public function getIdGuardian(){
+        return $this->idGuardian;
+    }
+
+    public function setIdGuardian($idGuardian){
+        $this->idGuardian = $idGuardian;
     }
 
     function getRating(){
@@ -81,6 +99,26 @@ class Guardian extends User
 
     function setDescripcion($descripcion){
         $this->descripcion = $descripcion;
+    }
+
+    function getIdUsuario(){
+        return $this->idUsuario;
+    }
+
+    public function getMail(){
+        return $this->user->getMail();
+    }
+
+    public function getName(){
+        return $this->user->getName();
+    }
+
+    public function getSurname(){
+        return $this->user->getSurname();
+    }
+
+    public function getTelefono(){
+        return $this->user->getPhoneNumber();
     }
 
     function __toString(){

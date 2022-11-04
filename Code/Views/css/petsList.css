@@ -27,6 +27,14 @@
     position: relative;
 }
 
+.imagenAnimal{
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 100%;
+    border: 5px solid #FCAA55;
+}
+
 .foto{
     height: 80%;
     width: auto;

@@ -1,0 +1,85 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    background: url("../img/fondoPerro.jpg");
+    background-size: 400px;
+    background-repeat : repeat;
+    overflow: auto;
+}
+
+.content{
+    margin-top: 125px;
+    height: 100vh;
+    width: 80%;
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+
+.contentHeader{
+    width: 100%;
+    position: relative;
+}
+
+.headerName{
+    position: absolute;
+    top: 100px;
+    left: 200px;
+    margin-right: 25px;
+    font-size: 2.5rem;
+    -webkit-text-stroke: #fff .5px;
+}
+
+.portada{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ffe3c2;
+    height: 200px;
+    width: 100%;
+}
+
+.imagenPerfil{
+    position: absolute;
+    top: 100px;
+    left: 0;
+    height: 150px;
+    object-fit: contain;
+}
+
+.contentBody{
+    background: whitesmoke;
+    width: 100%;
+    height: calc(100% - 100px);
+    margin-top: 200px;
+}
+
+#boxReserva{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#boxReserva > div{
+    background-color: #FCAA55;
+    width: 50%;
+    height: 50%;
+}

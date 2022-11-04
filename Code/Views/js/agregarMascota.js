@@ -14,17 +14,22 @@ botonCerrar.addEventListener('click', function() {
     document.body.classList.toggle('opacity');
 });
 
+const selectTipo = document.getElementById('selectTipo');
+const radioPerro = document.getElementById('perro');
+const radioGato = document.getElementById('gato');
+const selectRazaPerro = document.getElementById('razaPerro');
+const selectRazaGato = document.getElementById('razaGato');
+const selectContainer = document.getElementById('selectContainer');
 
-const inputPerro = document.getElementById('perro');
-const inputGato = document.getElementById('gato');
-const selectTamanio = document.getElementById('div-tamanio');
+selectRazaGato.remove();
 
-inputPerro.addEventListener('click', function() {
-    console.log("show")
-    selectTamanio.classList.remove('hideSelect');
-});
-
-inputGato.addEventListener('click', function() {
-    console.log("hide")
-    selectTamanio.classList.add('hideSelect');
+selectTipo.addEventListener('change', function() {
+    if (selectTipo.value == 'perro') {
+        selectRazaGato.remove();
+        selectContainer.appendChild(selectRazaPerro);
+    }
+    if (selectTipo.value == 'gato') {
+        selectRazaPerro.remove();
+        selectContainer.appendChild(selectRazaGato);
+    }
 });

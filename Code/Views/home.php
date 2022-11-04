@@ -22,10 +22,28 @@ require_once(CONFIG_PATH."CheckLog.php");
 <body>
     <div class="content">
         <div class="filtros-container">
-            <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por fecha</a>
+            <button id="filtroFecha">
+                Filtrar por fecha
+            </button>
             <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por estrellas</a>
             <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por precio</a>
             <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por ubicación</a>
+            <div id="boxFiltro">
+                <form action="<?php echo FRONT_ROOT.'Home/ShowGuardianList' ?>" method="post">
+                    <p id="cerrarBox">X</p>
+                    <div>
+                        <label for="fechaInicio">Fecha de inicio</label>
+                        <input type="date" name="fechaInicio" id="fechaInicio">
+                    </div>
+                    
+                    <div>
+                        <label for="fechaFin">Fecha de fin</label>
+                        <input type="date" name="fechaFin" id="fechaFin">
+                    </div>
+                    <input id="buscarButton" type="submit" value="Buscar"></input>
+                </form>
+            </div>
+            <script src="<?php echo JS_PATH.'filtros.js' ?>"></script>
         </div>
         <div class='guardians-section'>
             <!-- Esto no va, es para guiar hasta que este bonito -->
