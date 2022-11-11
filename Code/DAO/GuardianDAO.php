@@ -4,15 +4,22 @@ namespace DAO;
 
 use Models\Guardian as Guardian;
 
+use DAO\ReservaDAO as ReservaDAO;
+use DAO\AnimalDAO as AnimalDAO;
+
 class GuardianDAO{
     private $connection;
+    private $reservaDAO;
+    private $animalDAO;
     
     public function __construct(){
         $this->connection = Connection::GetInstance();
+        $this->reservaDAO = new ReservaDAO();
+        $this->animalDAO = new AnimalDAO();
     }
 
-    public function Add($idUsuario, $fechaInicio, $fechaFin, $tamanio, $direccionCuidado, $descripcion){
-        $query = "INSERT INTO Guardianes (idUsuario, valoracion, fechaInicio, fechaFin, saldoAcumulado, tamanioAceptado, direccionCuidado, descripcion) VALUES (:idUsuario, 0, :fechaInicio, :fechaFin, 0, :tamanio, :direccionCuidado, :descripcion);";
+    public function Add($idUsuario, $fechaInicio, $fechaFin, $tamanio, $direccionCuidado, $descripcion, $precio){
+        $query = "INSERT INTO Guardianes (idUsuario, valoracion, fechaInicio, fechaFin, saldoAcumulado, tamanioAceptado, direccionCuidado, descripcion, precio) VALUES (:idUsuario, 0, :fechaInicio, :fechaFin, 0, :tamanio, :direccionCuidado, :descripcion, :precio);";
         try{
             $connection = Connection::getInstance();
             $connection->ExecuteNonQuery($query, array(
@@ -21,7 +28,8 @@ class GuardianDAO{
                 "fechaFin" => $fechaFin,
                 "tamanio" => $tamanio,
                 "direccionCuidado" => $direccionCuidado,
-                "descripcion" => $descripcion
+                "descripcion" => $descripcion,
+                "precio" => $precio
             ));
         }
         catch(Exception $ex){
@@ -45,7 +53,8 @@ class GuardianDAO{
                     $row["saldoAcumulado"],
                     $row["tamanioAceptado"],
                     $row["direccionCuidado"],
-                    $row["descripcion"]
+                    $row["descripcion"],
+                    $row["precio"]
                 );
                 array_push($guardianList, $guardian);
             }
@@ -71,7 +80,8 @@ class GuardianDAO{
                     $row["saldoAcumulado"],
                     $row["tamanioAceptado"],
                     $row["direccionCuidado"],
-                    $row["descripcion"]
+                    $row["descripcion"],
+                    $row["precio"]
                 );
             }
             return $guardian;
@@ -96,7 +106,8 @@ class GuardianDAO{
                     $row["saldoAcumulado"],
                     $row["tamanioAceptado"],
                     $row["direccionCuidado"],
-                    $row["descripcion"]
+                    $row["descripcion"],
+                    $row["precio"]
                 );
             }
             return $guardian;
@@ -128,7 +139,8 @@ class GuardianDAO{
                     $row["saldoAcumulado"],
                     $row["tamanioAceptado"],
                     $row["direccionCuidado"],
-                    $row["descripcion"]
+                    $row["descripcion"],
+                    $row["precio"]
                 );
                 array_push($guardianList, $guardian);
             }
@@ -150,6 +162,68 @@ class GuardianDAO{
             else{
                 return false;
             }
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
+
+    public function GetEstadoGuardian($idGuardian, $fechaInicio, $fechaFin, $raza, $tamanio, $idAnimal){
+        $guardian = $this->getById($idGuardian);
+        if($guardian->getFechaFin() < $fechaFin || $guardian->getFechaInicio() > $fechaInicio){
+            return "El cuidador no dispone de esas fechas";
+        }
+        if(!strstr($guardian->getTamanio(), $tamanio)){
+            return "Tamaño no permitido por el cuidador";
+        }
+        $reservasPendiente = $this->reservaDAO->searchReserva($idGuardian, $fechaInicio, $fechaFin);
+        if($reservasPendiente != null){
+            foreach($reservasPendiente as $reserva){
+                if($reserva->getIdAnimal() == $idAnimal && $reserva->getIdGuardian() == $idGuardian && $fechaInicio < $reserva->getFechaFin() && $fechaFin > $reserva->getFechaInicio()){
+                    return "Ya existe una reserva pendiente para ese animal";
+                }
+                if($reserva->getEstado() == 'Pendiente' || $reserva->getEstado() == 'Cancelado' || $reserva->getEstado() == 'Finalizado'){
+                    return 'OK';
+                }
+                if($reserva->getEstado() == 'Aceptado' || $reserva->getEstado() == 'En curso'){
+                    if($this->animalDAO->getAnimalByID($reservasPendiente[0]->getIdAnimal())->getRaza() == $raza){
+                        return "OK";
+                    }
+                    var_dump($reserva);
+                    return "El cuidador ya tiene una reserva aceptada para esas fechas";
+                }
+            }
+        }
+        return "OK";
+    }
+
+    public function UpdateDates($idGuardian, $fechaInicio, $fechaFin){
+        try{
+            $query = "UPDATE Guardianes SET fechaInicio = :fechaInicio, fechaFin = :fechaFin WHERE idGuardian = :idGuardian";
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, array("idGuardian" => $idGuardian, "fechaInicio" => $fechaInicio, "fechaFin" => $fechaFin));
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
+
+    public function UpdatePrecio($idGuardian, $precio){
+        try{
+            $query = "UPDATE Guardianes SET precio = :precio WHERE idGuardian = :idGuardian";
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, array("idGuardian" => $idGuardian, "precio" => $precio));
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
+
+    public function UpdateSaldo($idGuardian, $saldo){
+        try{
+            $query = "UPDATE Guardianes SET saldoAcumulado = :saldo WHERE idGuardian = :idGuardian";
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, array("idGuardian" => $idGuardian, "saldo" => $saldo));
         }
         catch(Exception $ex){
             throw $ex;

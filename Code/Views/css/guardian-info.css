@@ -78,8 +78,104 @@ body{
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-#boxReserva > div{
+.hide{
+    display: none !important;
+}
+
+#boxReserva > form{
     background-color: #FCAA55;
     width: 50%;
     height: 50%;
 }
+
+#closeButtonReserva{
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    font-size: xx-large;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+.guardian-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #D9D9D9;
+    width: 50%;
+    margin-top: 50px;
+    margin-left: 25px;
+}
+
+.infoText{
+    margin: 25px;
+    font-size: 1.3rem;
+}
+
+.title{
+    font-size: 1.9rem;
+    margin: 25px;
+}
+
+.info{
+  margin-left: 15px;
+}
+
+.tamanios{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.tamanios > div{
+    margin: 5px;
+}
+
+.bn53 {
+    background-color: #FCAA55;
+    color: #fff;
+    padding: 7px;
+    width: 100px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    animation: bn53bounce 4s infinite;
+    cursor: pointer;
+    border: white 4px solid;
+  }
+  
+  @keyframes bn53bounce {
+    5%,
+    50% {
+      transform: scale(1);
+    }
+  
+    10% {
+      transform: scale(1);
+    }
+  
+    15% {
+      transform: scale(1);
+    }
+  
+    20% {
+      transform: scale(1) rotate(-5deg);
+    }
+  
+    25% {
+      transform: scale(1) rotate(5deg);
+    }
+  
+    30% {
+      transform: scale(1) rotate(-3deg);
+    }
+  
+    35% {
+      transform: scale(1) rotate(2deg);
+    }
+  
+    40% {
+      transform: scale(1) rotate(0);
+    }
+  }

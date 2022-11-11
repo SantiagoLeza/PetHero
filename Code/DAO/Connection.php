@@ -52,6 +52,7 @@ class Connection{
         try{
             $this->Prepare($query);
             $this->BindParameters($parameters, $queryType);
+            echo $query;
             $this->pdoStatement->execute();
             return $this->pdoStatement->rowCount();
         }
@@ -69,7 +70,7 @@ class Connection{
         }
     }
 
-    private function BindParameters($parameters = array(), $queryType = QueryType::Query){
+    private function BindParameters($parameters = array(), $queryType = QueryType::StoredProcedure){
         try{
             $i = 1;
             foreach($parameters as $key => $value){

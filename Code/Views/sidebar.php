@@ -42,7 +42,8 @@
                     <p>Perfil</p>
                 </a>
                 <a href="<?php echo FRONT_ROOT.'Guardian/ShowRegisterView' ?>">
-                    Queres ser guardian?
+                    <img src="<?php echo IMG_PATH.'cucha.png'?>" alt="Guardian">
+                    <p>Guardian</p>
                 </a>
             </div>
             <a href="<?php echo FRONT_ROOT.'User/Logout' ?>" class="logoutButton">

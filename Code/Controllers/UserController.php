@@ -12,13 +12,23 @@ use DAO\ArchivosDAO as ArchivosDAO;
 
 use DAO\Connection as Connection;
 
+use DAO\GuardianDAO as GuardianDAO;
+use Models\Guardian as Guardian;
+
+use DAO\ReservaDAO as ReservaDAO;
+use Models\Reserva as Reserva;
+
 class UserController{
     private $userDAO;
     private $AnimalDAO;
+    private $guardianDAO;
+    private $reservaDAO;
 
     public function __construct(){
         $this->userDAO = new UserDAO();
         $this->AnimalDAO = new AnimalDAO();
+        $this->guardianDAO = new GuardianDAO();
+        $this->reservaDAO = new ReservaDAO();
     }
 
     public function ShowSignupView(){
@@ -26,6 +36,7 @@ class UserController{
     }
 
     public function PetsView(){
+
         require_once(VIEWS_PATH."petsList.php");
     }
 
@@ -154,6 +165,20 @@ class UserController{
         }
     }
 
+    public function Reservar($fechaInicio, $fechaFin, $idAnimal, $idGuardian, $precio){
+        
+        $guardian = $this->guardianDAO->GetById($idGuardian);
+        $animal = $this->AnimalDAO->getAnimalByID($idAnimal);
 
+        $estadoGuardian = $this->guardianDAO->GetEstadoGuardian($idGuardian, $fechaInicio, $fechaFin, $animal->getRaza(), $animal->getTamanio(), $idAnimal);
+        if($estadoGuardian == 'OK'){
+            $this->reservaDAO->Add($idGuardian, $idAnimal, $fechaInicio, $fechaFin, $precio, 'Pendiente');
+            header("location: ".FRONT_ROOT."Home/Home");
+        }
+        else{
+            $message = $estadoGuardian;
+            require_once(VIEWS_PATH."guardian-info.php");
+        }
+    }
 
 }

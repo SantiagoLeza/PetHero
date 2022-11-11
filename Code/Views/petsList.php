@@ -17,7 +17,6 @@ require_once(CONFIG_PATH."CheckLog.php");
             $user = $_SESSION["loggedUser"];
 
             use DAO\AnimalDAO as PetDAO;
-            use Models\Pet as Pet;
 
             use DAO\ArchivosDAO as ArchivosDAO;
 

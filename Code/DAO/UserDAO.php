@@ -44,7 +44,7 @@ class UserDAO{
             $ciudadDAO = new CiudadDAO();
             $userList = array();
             $query = "SELECT * FROM Usuarios";
-            $this->connection = Connection::GetInstance();
+            $this->connection = Connection::getInstance();
             $resultSet = $this->connection->Execute($query);
             foreach($resultSet as $row){
                 $user = new User(
@@ -71,7 +71,7 @@ class UserDAO{
         try{
             $ciudadDAO = new CiudadDAO();
             $query = "SELECT * FROM Usuarios WHERE mail = :email";
-            $this->connection = Connection::GetInstance();
+            $this->connection = Connection::getInstance();
             $resultSet = $this->connection->Execute($query, array("email" => $email));
             if(count($resultSet) == 0){
                 return null;
@@ -98,7 +98,7 @@ class UserDAO{
         try{
             $ciudadDAO = new CiudadDAO();
             $query = "SELECT * FROM Usuarios WHERE idUsuario = :id";
-            $this->connection = Connection::GetInstance();
+            $this->connection = Connection::getInstance();
             $resultSet = $this->connection->Execute($query, array("id" => $id));
             if(count($resultSet) == 0){
                 return null;

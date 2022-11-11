@@ -129,4 +129,33 @@ class AnimalDAO{
 
         return $animalList;
     }
+
+    
+    public function getAnimalByID($idAnimal){
+        try{
+            $query = "SELECT * FROM Animales as a join TipoAnimal as ta
+            on a.idTipoAnimal = ta.idTipoAnimal WHERE idAnimales = :idAnimal";
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, array("idAnimal" => $idAnimal));
+            $animal = new Animal(
+                $resultSet[0]["idAnimales"],
+                $resultSet[0]["tipo"],
+                $resultSet[0]["raza"],
+                $resultSet[0]["tamanio"],
+                $resultSet[0]["nombre"],
+                $resultSet[0]["edad"],
+                $resultSet[0]["sexo"],
+                $resultSet[0]["idImagenPerfil"],
+                $resultSet[0]["idVideo"],
+                $resultSet[0]["idCartaVacunacion"],
+                $resultSet[0]["idDuenio"],
+                $resultSet[0]["observaciones"]
+            );
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+
+        return $animal;
+    }
 }

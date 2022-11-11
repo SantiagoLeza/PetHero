@@ -16,8 +16,10 @@ class Guardian extends User
     private $tamanio;
     private $direccionCuidado;
     private $descripcion;
+    private $precio;
+    private $saldoAcumulado;
 
-    public function __construct($idGuardian, $idUsuario, $rating, $fechaInicio, $fechaFin, $saldo,$tamanio, $direccionCuidado, $descripcion){
+    public function __construct($idGuardian, $idUsuario, $rating, $fechaInicio, $fechaFin, $saldo,$tamanio, $direccionCuidado, $descripcion, $precio){
 
         $userDAO = new UserDAO();
 
@@ -31,6 +33,7 @@ class Guardian extends User
         $this->tamanio = $tamanio;
         $this->direccionCuidado = $direccionCuidado;
         $this->descripcion = $descripcion;
+        $this->precio = $precio;
     }
 
     public function getIdGuardian(){
@@ -49,8 +52,12 @@ class Guardian extends User
         $this->rating = $rating;
     }
 
+    function setPrecio($precio){
+        $this->precio = $precio;
+    }
+
     function getPrecio(){
-        return 0;
+        return $this->precio;
     }
 
     function getFechaInicio(){
@@ -120,6 +127,9 @@ class Guardian extends User
     public function getTelefono(){
         return $this->user->getPhoneNumber();
     }
+
+    
+
 
     function __toString(){
         return $this->mail . " - " . $this->password . " - " . $this->name . " - " . $this->phoneNumber . " - " . $this->birthdate . " - " . $this->adress . " - " . $this->dogs . " - " . $this->rating . " - " . $this->fechaInicio . " - " . $this->fechaFin . " - " . $this->saldo . " - " . $this->tamanio . " - " . $this->direccionCuidado . " - " . $this->descripcion;
