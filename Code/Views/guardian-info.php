@@ -48,13 +48,13 @@ if(isset($message)){
                     <p>Tamaños aceptados</p>
                     <div class="tamanios">
                         <div>
-                            <input type="checkbox" disabled <?php if(strstr($guardian->getTamanio(), 'pequenio')){echo 'checked';}?>>Pequeño
+                            <input class="checks" type="checkbox" disabled <?php if(strstr($guardian->getTamanio(), 'pequenio')){echo 'checked';}?>>Pequeño
                         </div>
                         <div>
-                            <input type="checkbox" disabled <?php if(strstr($guardian->getTamanio(), 'mediano')){echo 'checked';}?>>Mediano
+                            <input class="checks" type="checkbox" disabled <?php if(strstr($guardian->getTamanio(), 'mediano')){echo 'checked';}?>>Mediano
                         </div>
                         <div>
-                            <input type="checkbox" disabled <?php if(strstr($guardian->getTamanio(), 'grande')){echo 'checked';}?>>Grande
+                            <input class="checks" type="checkbox" disabled <?php if(strstr($guardian->getTamanio(), 'grande')){echo 'checked';}?>>Grande
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@ if(isset($message)){
             </div>
             <input type="hidden" name="idGuardian" value="<?php echo $guardian->getIdGuardian() ?>">
             <input type="hidden" name="precio" value="<?php echo $guardian->getPrecio() ?>">
-            <button type="submit">Reservar</button>
+            <button type="submit" class="submit">Reservar</button>
         </form>
     </div>
 

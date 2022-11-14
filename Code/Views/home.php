@@ -1,12 +1,10 @@
 <?php
 
-use DAO\GuardianDAO as GuardianDAO;
-
-$guardianDAO = new GuardianDAO();
-
-$guardianes = $guardianDAO->GetAll();
-
 require_once(CONFIG_PATH."CheckLog.php");
+
+if(isset($error)){
+    echo '<script type="text/javascript">alert("'.$error.'");</script>';
+}
 
 ?>
 

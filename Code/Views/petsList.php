@@ -14,23 +14,12 @@ require_once(CONFIG_PATH."CheckLog.php");
 <body>
     <div class="pet-cards">
         <?php
-            $user = $_SESSION["loggedUser"];
-
-            use DAO\AnimalDAO as PetDAO;
-
-            use DAO\ArchivosDAO as ArchivosDAO;
-
-            $petDAO = new PetDAO();
-            $pets = $petDAO->getAll();
-
-            $archivosDAO = new ArchivosDAO();
-
             foreach($pets as $pet){
                 if($pet->getIdDuenio() == $user->getIdUsuario()){
                     echo "<div class='pet-card'>";
                     echo "<div class='pet-image'>";
                     ?>
-                    <img src="<?php echo ANIMAL_IMG_PATH.'ImagenAnimal/'.$archivosDAO->getImagenAnimal($pet->getIdImagenPerfil()); ?>" alt="" class="imagenAnimal">
+                    <img src="<?php echo ANIMAL_IMG_PATH.'ImagenAnimal/'.$this->archivosDAO->getImagenAnimal($pet->getIdImagenPerfil()); ?>" alt="" class="imagenAnimal">
                     <?php
                     echo "<img src='".IMG_PATH."/". $pet->getTipo() .".png' alt='' class='icono logo-". $pet->getTipo() ."'>";
                     echo "</div>";
@@ -70,7 +59,7 @@ require_once(CONFIG_PATH."CheckLog.php");
                     <div id="selectContainer">
                         <select name="raza" id="razaPerro" class="selectAnimal">
                             <?php
-                                $razas = $petDAO->GetRazas();
+                                $razas = $this->AnimalDAO->GetRazas();
             
                                 foreach($razas as $r){
                                     if($r['tipo'] == "perro"){
@@ -81,7 +70,7 @@ require_once(CONFIG_PATH."CheckLog.php");
                         </select>
                         <select name="raza" id="razaGato" class="selectAnimal">
                             <?php
-                                $razas = $petDAO->GetRazas();
+                                $razas = $this->AnimalDAO->GetRazas();
             
                                 foreach($razas as $r){
                                     if($r['tipo'] == "gato"){

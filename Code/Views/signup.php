@@ -4,8 +4,6 @@ if(!empty($message)){
     echo "<script type='text/javascript'>alert('$message');</script>";
 }
 
-use DAO\CiudadDAO as CiudadDAO;
-
 ?>
 
 <!DOCTYPE html>
@@ -47,10 +45,7 @@ use DAO\CiudadDAO as CiudadDAO;
             
             <label for="city">Ciudad</label>
             <select name="city" id="city">
-                <?php    
-                $ciudadDAO = new CiudadDAO();
-                $cityList = $ciudadDAO->GetAll();
-                
+                <?php   
                 foreach($cityList as $city){
                     echo "<option value='".$city['nombre']."'>".$city['nombre']."</option>";
                 }

@@ -92,6 +92,13 @@ class Reserva
     {
         $this->estado = $estado;
     }
+
+    public function getDias(){
+        $fecha1 = new \DateTime($this->getFechaInicio());
+        $fecha2 = new \DateTime($this->getFechaFin());
+        $dias = $fecha1->diff($fecha2);
+        return $dias->days;
+    }
 }
 
 

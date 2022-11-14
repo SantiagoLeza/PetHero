@@ -10,11 +10,27 @@ body{
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    position: fixed;
+    background: url("../img/fondoPerro.jpg");
+    background-size: 400px;
+    background-repeat : repeat;
+    overflow: auto;
 }
 
-body > p:first-child{
-    margin-top: 150px;   
-} 
+.content:first-child{
+    margin-top: 125px;
+    background-color: white;
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.content > *:first-child{
+    margin-top: 25px;
+}
 
 form{
     display: flex;
@@ -25,4 +41,17 @@ form{
 
 form > *{
     margin: 10px;
+}
+
+.bn3{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: #FCAA55;
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    padding: 10px;
+    width: 125px;
+    font-size: large;
+    font-weight: bold;
 }

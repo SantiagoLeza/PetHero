@@ -11,79 +11,127 @@ use DAO\AnimalDAO as AnimalDAO;
 class GuardianController{
     private $guardianDAO;
     private $reservasDAO;
+    private $animalDAO;
 
     public function __construct(){
         $this->guardianDAO = new GuardianDAO();
         $this->reservasDAO = new ReservaDAO();
+        $this->animalDAO = new AnimalDAO();
     }
 
     public function Home()
     {    
-        $this->reservasDAO->checkReservas();
-        $guardian = $this->guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
-        $reservas = $this->reservasDAO->GetByIdGuardian($guardian->getIdGuardian());
-        require_once(VIEWS_PATH."guardian-home.php");
+        try{
+            $this->reservasDAO->checkReservas();
+            $guardian = $this->guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
+            $reservas = $this->reservasDAO->GetByIdGuardian($guardian->getIdGuardian());
+            require_once(VIEWS_PATH."guardian-home.php");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
     }
 
-    public function ShowRegisterView(){
-        if($this->guardianDAO->isGuardian($_SESSION['loggedUser']->getIdUsuario())){
-            header("location: ".FRONT_ROOT."Guardian/Home");
-        }
-        else
+    public function ShowRegisterView()
+    {
+        try
         {
-            require_once(VIEWS_PATH."register-guardian.php");
+            if($this->guardianDAO->isGuardian($_SESSION['loggedUser']->getIdUsuario()))
+            {   
+                header("location: ".FRONT_ROOT."Guardian/Home");    
+            }
         }
+       catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
+        
     }
 
     public function Add($initialDate, $finalDate, $tamanio, $address, $description){
-        $tamanios = implode(", ", $tamanio);
-        $user = $_SESSION['loggedUser'];
-        $this->guardianDAO->Add(
-            $user->getIdUsuario(),
-            $initialDate,
-            $finalDate,
-            $tamanios,
-            $address,
-            $description
-        );
-        header("location: ".FRONT_ROOT."Guardian/Home");
+        try{
+            $tamanios = implode(", ", $tamanio);
+            $user = $_SESSION['loggedUser'];
+            $this->guardianDAO->Add(
+                $user->getIdUsuario(),
+                $initialDate,
+                $finalDate,
+                $tamanios,
+                $address,
+                $description
+            );
+            header("location: ".FRONT_ROOT."Guardian/Home");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
     }
 
     public function actualizarFechas($fechaInicio, $fechaFin){
-        $guardian = $this->guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
-        $this->guardianDAO->UpdateDates($guardian->getIdGuardian(), $fechaInicio, $fechaFin);
-        echo $guardian->getIdGuardian();
-        header("location: ".FRONT_ROOT."Guardian/Home");
+        try{
+            $guardian = $this->guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
+            $this->guardianDAO->UpdateDates($guardian->getIdGuardian(), $fechaInicio, $fechaFin);
+            echo $guardian->getIdGuardian();
+            header("location: ".FRONT_ROOT."Guardian/Home");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
     }
 
     public function actualizarPrecio($precio){
-        $guardian = $this->guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
-        $guardian->setPrecio($precio);
-        $this->guardianDAO->UpdatePrecio($guardian->getIdGuardian(), $precio);
-        header("location: ".FRONT_ROOT."Guardian/Home");
+        try{
+            $guardian = $this->guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
+            $guardian->setPrecio($precio);
+            $this->guardianDAO->UpdatePrecio($guardian->getIdGuardian(), $precio);
+            header("location: ".FRONT_ROOT."Guardian/Home");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
     }
 
     public function agregarDinero($dinero){
-        $guardian = $this->guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
-        $guardian->setSaldo($dinero);
-        $this->guardianDAO->UpdateSaldo($guardian->getIdGuardian(), $dinero);
-        header("location: ".FRONT_ROOT."Guardian/Home");
+        try{
+            $guardian = $this->guardianDAO->GetByMail($_SESSION['loggedUser']->getMail());
+            $guardian->setSaldo($dinero + $guardian->getSaldo());
+            $this->guardianDAO->UpdateSaldo($guardian->getIdGuardian(), $guardian->getSaldo());
+            header("location: ".FRONT_ROOT."Guardian/Home");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
     }
 
     public function AceptarReserva($idReserva){
-        $this->reservasDAO->AceptarReserva($idReserva);
-        $this->agregarDinero($this->reservasDAO->getById($idReserva)->getPrecio()*0.5);
-        header("location: ".FRONT_ROOT."Guardian/Home");
+        try{
+            $this->reservasDAO->AceptarReserva($idReserva);
+            $reserva = $this->reservasDAO->getById($idReserva);
+            $this->agregarDinero(($reserva->getPrecio()* $reserva->getDias())*0.5);
+            header("location: ".FRONT_ROOT."Guardian/Home");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
     }
 
     public function RechazarReserva($idReserva){
-        $this->reservasDAO->RechazarReserva($idReserva);
-        header("location: ".FRONT_ROOT."Guardian/Home");
+        try{
+            $this->reservasDAO->RechazarReserva($idReserva);
+            header("location: ".FRONT_ROOT."Guardian/Home");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
     }
 
     public function CancelarReserva($idReserva){
-        $this->reservasDAO->CancelarReserva($idReserva);
-        header("location: ".FRONT_ROOT."Guardian/Home");
+        try{
+            $this->reservasDAO->CancelarReserva($idReserva);
+            header("location: ".FRONT_ROOT."Guardian/Home");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
     }
 
  }

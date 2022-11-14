@@ -5,9 +5,6 @@ require_once(CONFIG_PATH."CheckLog.php");
 if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
     header("location: ".FRONT_ROOT."Home/Home");
 }
-
-use DAO\AnimalDAO as AnimalDAO;
-$animalDAO = new AnimalDAO();
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +72,7 @@ $animalDAO = new AnimalDAO();
                                 $<?php echo $reserva->getPrecio(); ?>
                             </p>
                             <p>
-                                <?php echo $animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
                             </p>
                         </div>
                         <div class="buttons">
@@ -114,7 +111,7 @@ $animalDAO = new AnimalDAO();
                             $<?php echo $reserva->getPrecio(); ?>
                         </p>
                         <p>
-                            <?php echo $animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                            <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
                         </p>
                     </div>
                     <?php
@@ -143,7 +140,7 @@ $animalDAO = new AnimalDAO();
                                 $<?php echo $reserva->getPrecio(); ?>
                             </p>
                             <p>
-                                <?php echo $animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
                             </p>
                         </div>
                     </div>
@@ -171,7 +168,7 @@ $animalDAO = new AnimalDAO();
                             $<?php echo $reserva->getPrecio(); ?>
                         </p>
                         <p>
-                            <?php echo $animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                            <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
                         </p>
                     </div>
                     <?php
@@ -200,7 +197,7 @@ $animalDAO = new AnimalDAO();
                                 $<?php echo $reserva->getPrecio(); ?>
                             </p>
                             <p>
-                                <?php echo $animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
                             </p>
                         </div>
                     </div>

@@ -76,6 +76,7 @@ body{
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.2);
+    color: white;
 }
 
 .hide{
@@ -84,15 +85,59 @@ body{
 
 #boxReserva > form{
     background-color: #FCAA55;
+    border-radius: 1rem;
     width: 50%;
     height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+    font-size: larger;
+}
+
+#boxReserva > form input{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+}
+
+#boxReserva > form > div{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+
+#boxReserva > form select{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+}
+
+.submit{
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: white;
+    border: none;
+    color: #FCAA55;
+    font-weight: bold;
+    font-size: larger;
+    cursor: pointer;
 }
 
 #closeButtonReserva{
     cursor: pointer;
-    position: relative;
-    top: 0;
-    right: 0;
+    position: absolute;
+    color: white;
+    top: 10px;
+    left: 10px;
     width: 30px;
     height: 30px;
     font-size: xx-large;
@@ -179,3 +224,6 @@ body{
       transform: scale(1) rotate(0);
     }
   }
+
+
+ 
