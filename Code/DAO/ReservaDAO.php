@@ -15,7 +15,7 @@ class ReservaDAO
 
     public function Add($idGuardian, $idAnimal, $fechaInicio, $fechaFin, $precio, $estado)
     {
-       $query = "INSERT INTO Reservas (idGuardian, idAnimal, fechaInicio, fechaFin, precio, estado) VALUES (:idGuardian, :idAnimal, :fechaInicio, :fechaFin, :precio, :estado);";
+       $query = "INSERT INTO Reservas (idGuardian, idAnimal, fechaInicio, fechaFin, precio, estado, pago) VALUES (:idGuardian, :idAnimal, :fechaInicio, :fechaFin, :precio, :estado, 0);";
 
         try
         {
@@ -27,7 +27,8 @@ class ReservaDAO
                 "fechaInicio" => $fechaInicio,
                 "fechaFin" => $fechaFin,
                 "precio" => $precio,
-                "estado" => $estado
+                "estado" => $estado,
+                "pago" => $pago
             ));
             
         }
@@ -49,7 +50,16 @@ class ReservaDAO
 
             foreach($result as $row)
             {
-                $reserva = new Reserva($row["idReserva"],$row["idGuardian"], $row["idAnimal"], $row["fechaInicio"], $row["fechaFin"], $row["precio"], $row["estado"]);
+                $reserva = new Reserva(
+                    $row["idReserva"],
+                    $row["idGuardian"],
+                    $row["idAnimal"],
+                    $row["fechaInicio"],
+                    $row["fechaFin"],
+                    $row["precio"],
+                    $row["estado"],
+                    $row["pago"]
+                );
                 array_push($reservas, $reserva);
             }
 
@@ -84,7 +94,8 @@ class ReservaDAO
                     $row["fechaInicio"],
                     $row["fechaFin"],
                     $row["precio"],
-                    $row["estado"]
+                    $row["estado"],
+                    $row["pago"]
                 );
                 array_push($reservas, $reserva);
             }
@@ -120,7 +131,8 @@ class ReservaDAO
                     $row["fechaInicio"],
                     $row["fechaFin"],
                     $row["precio"],
-                    $row["estado"]
+                    $row["estado"],
+                    $row["pago"]
                 );
                 array_push($reservas, $reserva);
             }
@@ -156,7 +168,8 @@ class ReservaDAO
                     $row["fechaInicio"],
                     $row["fechaFin"],
                     $row["precio"],
-                    $row["estado"]
+                    $row["estado"],
+                    $row["pago"]
                 );
                 array_push($reservas, $reserva);
             }
@@ -271,10 +284,76 @@ class ReservaDAO
                 $result[0]["fechaInicio"],
                 $result[0]["fechaFin"],
                 $result[0]["precio"],
-                $result[0]["estado"]
+                $result[0]["estado"],
+                $result[0]["pago"]
             );
 
             return $reserva;
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function GetAllByUser($idUsuario){
+        $query = "
+            SELECT * FROM Reservas as r
+            JOIN Animales as a
+            ON r.idAnimal = a.idAnimales
+            WHERE a.idDuenio = :idUsuario
+        ";
+
+        try
+        {
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->Execute($query, array("idUsuario" => $idUsuario));
+            $reservas = array();
+            if(count($result) == 0)
+            {
+                return null;
+            }
+
+            foreach($result as $row)
+            {
+                $reserva = new Reserva(
+                    $row["idReserva"],
+                    $row["idGuardian"],
+                    $row["idAnimal"],
+                    $row["fechaInicio"],
+                    $row["fechaFin"],
+                    $row["precio"],
+                    $row["estado"],
+                    $row["pago"]
+                );
+                array_push($reservas, $reserva);
+            }
+
+            return $reservas;
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function PagarReserva($idReserva, $numeroTarjeta, $fechaVencimiento, $nombreTitular, $cvv, $monto)
+    {
+        $query = "UPDATE Reservas SET pago = 1 WHERE idReserva = :idReserva; ";
+
+        try
+        {
+            $this->connection = Connection::getInstance();
+            $this->connection->ExecuteNonQuery($query, array("idReserva" => $idReserva));
+            $query2 = "CALL cargarPago(:nTarjeta, :fechaV, :nombre, :cvv, :monto, :idReserva);";
+            $this->connection->ExecuteNonQuery($query2, array(
+                "nTarjeta" => $numeroTarjeta,
+                "fechaV" => $fechaVencimiento,
+                "nombre" => $nombreTitular,
+                "cvv" => $cvv,
+                "monto" => $monto,
+                "idReserva" => $idReserva
+            ));
         }
         catch(Exception $ex)
         {

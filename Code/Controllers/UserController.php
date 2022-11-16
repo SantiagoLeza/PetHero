@@ -76,11 +76,15 @@ class UserController{
                 }
             }
 
-            if (file_exists($target_file)) {
-                unlink($target_file);
+            if ($uploadOk == 1) {
+                if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                    return $file["name"];
+                } else {
+                    return $file["name"];
+                }
             }
 
-            return $file["name"];
+            
         }
         catch(Exception $ex){
             header("location: ".FRONT_ROOT."Home/Home/Error");
@@ -209,7 +213,7 @@ class UserController{
             $estadoGuardian = $this->guardianDAO->GetEstadoGuardian($idGuardian, $fechaInicio, $fechaFin, $animal->getRaza(), $animal->getTamanio(), $idAnimal);
             if($estadoGuardian == 'OK'){
                 $this->reservaDAO->Add($idGuardian, $idAnimal, $fechaInicio, $fechaFin, $precio, 'Pendiente');
-                header("location: ".FRONT_ROOT."Home/Home");
+                header("location: ".FRONT_ROOT."Home/Home/ReservaExitosa");
             }
             else{
                 $message = $estadoGuardian;
@@ -219,6 +223,46 @@ class UserController{
         catch(Exception $ex){
             header("location: ".FRONT_ROOT."Home/Home/Error");
         }
+    }
+
+    public function ReservasView(){
+        try{
+            $reservas = $this->reservaDAO->GetAllByUser($_SESSION['loggedUser']->getIdUsuario());
+            require_once(VIEWS_PATH."reservas.php");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
+    }
+
+    public function ShowPagar($idReserva){
+        try{
+            $reserva = $this->reservaDAO->GetById($idReserva);
+            require_once(VIEWS_PATH."pagar-reserva.php");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
+    }
+
+    public function PagarReserva($idReserva, $numeroTarjeta, $fechaVencimiento, $nombreTitular, $cvv, $monto){
+        try{
+            $this->reservaDAO->PagarReserva($idReserva, $numeroTarjeta, $fechaVencimiento, $nombreTitular, $cvv, $monto);
+            $this->guardianDAO->AddSaldo(
+                $this->reservaDAO->GetById($idReserva)->getIdGuardian(),
+                $this->reservaDAO->GetById($idReserva)->getPrecioTotal() * 0.5
+            );
+            header("location: ".FRONT_ROOT."User/ReservasView");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Home/Error");
+        }
+    }
+
+    public function PetInfo($id)
+    {
+        $Animal = $this->AnimalDAO->getAnimalByID($id);
+        require_once(VIEWS_PATH."pet-info.php");
     }
 
 }

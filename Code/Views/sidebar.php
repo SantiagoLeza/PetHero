@@ -25,9 +25,9 @@
                 <div class="line">&nbsp</div>
             </div>
             <div class="sidebarButtons">
-                <a>
-                    <img src="<?php echo IMG_PATH.'notificationIcon.png' ?>" alt="Notifications">
-                    <p>Notificaciones</p>
+                <a href="<?php echo FRONT_ROOT.'User/ReservasView' ?>">
+                    <img src="<?php echo IMG_PATH.'reserva.png' ?>" alt="Notifications">
+                    <p>Reservas</p>
                 </a>
                 <a href="<?php echo FRONT_ROOT.'User/PetsView' ?>">
                     <img src="<?php echo IMG_PATH.'petIcon.png' ?>" alt="My Pets">

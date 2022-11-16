@@ -119,10 +119,15 @@ class ArchivosDAO{
             $parameters["id"] = $id;
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
-            return $resultSet[0]["urlVideo"];
+            if($resultSet != null){
+                return $resultSet[0]["urlVideo"];
+            }
+            return null;
         }
         catch(Exception $ex){
             throw $ex;
         }
     }
+
+
 }

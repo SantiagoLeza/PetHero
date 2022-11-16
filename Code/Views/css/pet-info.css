@@ -1,0 +1,24 @@
+html, body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.content{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 150px;
+    padding: 0;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.content > img{
+    width: 40%;
+}
+
+.content > img:first-child{
+    border-radius: 100%;
+}

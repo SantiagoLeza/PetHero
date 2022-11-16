@@ -229,5 +229,16 @@ class GuardianDAO{
             throw $ex;
         }
     }
+
+    public function AddSaldo($idGuardian, $saldo){
+        try{
+            $query = "UPDATE Guardianes SET saldoAcumulado = saldoAcumulado + :saldo WHERE idGuardian = :idGuardian";
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, array("idGuardian" => $idGuardian, "saldo" => $saldo));
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
 }
 ?>

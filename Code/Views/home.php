@@ -2,8 +2,8 @@
 
 require_once(CONFIG_PATH."CheckLog.php");
 
-if(isset($error)){
-    echo '<script type="text/javascript">alert("'.$error.'");</script>';
+if(isset($message)){
+    echo '<script type="text/javascript">alert("'.$message.'");</script>';
 }
 
 ?>

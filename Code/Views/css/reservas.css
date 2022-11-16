@@ -12,51 +12,13 @@ body{
     align-items: center;
 }
 
-.info{
-    margin-top: 150px;
-    border: 10px #FCAA55 solid;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.info > p{
-    font-size: x-large;
-    font-weight: bold;
-    margin: 15px;
-}
-
-.info > .fechas{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.info > .fechas > *, .info > .fechas > * > *{
-    margin: 5px;
-}
-
-.info > .fechas > div{
-    display: flex;
-    flex-direction: column;
-}
-
-.info > .fechas > button{
-    height: 75%;
-}
-
 .Reservas{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-flow: row dense;
     grid-gap: 10px;
     width: 80%;
-    margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 150px;
     justify-content: center;
 }
 
@@ -166,4 +128,16 @@ body{
 .hr{
     border: 1px solid #FCAA55;
     width: 100%;
+}
+
+.pago{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.pago > button{
+    margin-left: 15px;
+    height: 25px;
+    cursor: pointer;
 }

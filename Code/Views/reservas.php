@@ -1,9 +1,6 @@
 <?php
-
-require_once(CONFIG_PATH."CheckLog.php");
-
-if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
-    header("location: ".FRONT_ROOT."Home/Home");
+if(!isset($reservas)){
+    $reservas = array();
 }
 ?>
 
@@ -13,45 +10,10 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardian</title>
-    <link rel="stylesheet" href="<?php echo CSS_PATH.'guardian-home.css' ?>">
+    <title>Reservas</title>
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>reservas.css">
 </head>
 <body>
-    <div class="info">
-        <p>
-            <?php echo $guardian->getName() .' '. $guardian->getSurname(); ?>
-        </p>
-
-        <div class="hr"></div><br>
-        
-        <label>Disponibilidad</label>
-        <form action="<?php echo FRONT_ROOT.'Guardian/ActualizarFechas' ?>" method="post" class="fechas">
-            <div>
-                <label for="fechaInicio">Fecha de inicio</label>
-                <label for="fechaFin">Fecha de fin</label>
-            </div>
-            <div>
-                <input type="date" name="fechaInicio" id="fechaInicio" required
-                value="<?php echo $guardian->getFechaInicio(); ?>">
-                <input type="date" name="fechaFin" id="fechaFin" required
-                value="<?php echo $guardian->getFechaFin(); ?>">
-            </div>
-            <button type="submit">Aplicar</button>
-        </form>
-        
-        <form action="<?php echo FRONT_ROOT.'Guardian/ActualizarPrecio' ?>" method="post">
-            <div>
-                <label for="precio">Precio</label>
-                <input type="number" name="precio" id="precio" value=<?php echo $guardian->getPrecio(); ?> required>
-                <button type="submit">✓</button>
-            </div>
-        </form>
-    </div>
-
-    <a class="bn5" href="<?php echo FRONT_ROOT.'Home/Home' ?>">
-    <button class="bn-32 bn32">Volver</button>
-    </a>
-    
     <div class="Reservas">
         <div>
             <div class="headerReserva" id="headerPendientes">
@@ -71,19 +33,9 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
                             <p>
                                 $<?php echo $reserva->getPrecio(); ?>
                             </p>
-                            <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                            </a>
-                        </div>
-                        <div class="buttons">
-                            <form action="<?php echo FRONT_ROOT.'Guardian/AceptarReserva' ?>" method="post">
-                                <input type="hidden" name="idReserva" value="<?php echo $reserva->getIdReserva(); ?>">
-                                <button type="submit" class="aceptar">✓</button>
-                            </form>
-                            <form action="<?php echo FRONT_ROOT.'Guardian/RechazarReserva' ?>" method="post">
-                                <input type="hidden" name="idReserva" value="<?php echo $reserva->getIdReserva(); ?>">
-                                <button type="submit" class="cancelar">X</button>
-                            </form>
+                            <p>
+                                <?php echo $this->AnimalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                            </p>
                         </div>
                     </div>
                     <?php
@@ -110,17 +62,21 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
                         <p>
                             $<?php echo $reserva->getPrecio(); ?>
                         </p>
-                        <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                            <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                        </a>
-                        <?php  
+                        <p>
+                            <?php echo $this->AnimalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                        </p>
+                        <div class="pago"><?php 
                             if($reserva->getPago() == 0){
-                        ?>
-                                <p>No pagado</p>
-
-                        <?php } else{ ?>
-                                    <p>No pagado</p>
-                                  <?php } ?>
+                            ?>
+                            <p>No pagado</p>
+                            <form action="<?php echo FRONT_ROOT.'User/ShowPagar/'; ?>" method="post">
+                                <input type="hidden" name="idReserva" value="<?php echo $reserva->getIdReserva(); ?>">
+                                <input type="submit" value="Pagar">
+                            </form>
+                            <?php } else{
+                                echo 'Pagado';
+                            }
+                        ?></div>
                     </div>
                     <?php
                 }
@@ -147,9 +103,9 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
                             <p>
                                 $<?php echo $reserva->getPrecio(); ?>
                             </p>
-                            <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                            </a>
+                            <p>
+                                <?php echo $this->AnimalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                            </p>
                         </div>
                     </div>
                     <?php
@@ -175,9 +131,9 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
                         <p>
                             $<?php echo $reserva->getPrecio(); ?>
                         </p>
-                        <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                            <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                        </a>
+                        <p>
+                            <?php echo $this->AnimalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                        </p>
                     </div>
                     <?php
                 }
@@ -204,9 +160,9 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
                             <p>
                                 $<?php echo $reserva->getPrecio(); ?>
                             </p>
-                            <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                            </a>
+                            <p>
+                                <?php echo $this->AnimalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                            </p>
                         </div>
                     </div>
                     <?php
@@ -216,6 +172,7 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
             </div>
         </div>
     </div>
+
     <script src="<?php echo JS_PATH.'guardianHome.js' ?>"></script>
     <?php require_once(VIEWS_PATH."sidebar.php"); ?>
 </body>

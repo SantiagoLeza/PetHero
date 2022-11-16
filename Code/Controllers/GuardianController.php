@@ -107,7 +107,7 @@ class GuardianController{
             $this->reservasDAO->AceptarReserva($idReserva);
             $reserva = $this->reservasDAO->getById($idReserva);
             $this->agregarDinero(($reserva->getPrecio()* $reserva->getDias())*0.5);
-            header("location: ".FRONT_ROOT."Guardian/Home");
+            header("location: ".FRONT_ROOT."Guardian/Home/");
         }
         catch(Exception $ex){
             header("location: ".FRONT_ROOT."Home/Home/Error");

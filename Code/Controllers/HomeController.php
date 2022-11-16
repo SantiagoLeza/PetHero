@@ -35,9 +35,9 @@ class HomeController{
         }
     }
 
-    public function Home($error = null){
-        if($error != null){
-            $error = "Error: ha ocurrido un error. Intente nuevamente. Si el problema persiste contacte a un administrador.";
+    public function Home($message = null){
+        if($message == 'Error'){
+            $message = "Error: ha ocurrido un error. Intente nuevamente. Si el problema persiste contacte a un administrador.";
         }
         $guardianes = $this->guardianDAO->GetAll();
         require_once(VIEWS_PATH."home.php");

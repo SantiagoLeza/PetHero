@@ -11,8 +11,9 @@ class Reserva
     private $fechaFin;
     private $precio;
     private $estado;
+    private $pago;
     
-    public function __construct($idReserva, $idGuardian, $idAnimal, $fechaInicio, $fechaFin, $precio, $estado)
+    public function __construct($idReserva, $idGuardian, $idAnimal, $fechaInicio, $fechaFin, $precio, $estado, $pago)
     {
         $this->idReserva = $idReserva;
         $this->idGuardian = $idGuardian;
@@ -21,6 +22,7 @@ class Reserva
         $this->fechaFin = $fechaFin;
         $this->precio = $precio;
         $this->estado = $estado;
+        $this->pago = $pago;
     }
 
     public function getIdReserva()
@@ -93,11 +95,25 @@ class Reserva
         $this->estado = $estado;
     }
 
+    public function getPago()
+    {
+        return $this->pago;
+    }
+
+    public function setPago($pago)
+    {
+        $this->pago = $pago;
+    }
+
     public function getDias(){
         $fecha1 = new \DateTime($this->getFechaInicio());
         $fecha2 = new \DateTime($this->getFechaFin());
         $dias = $fecha1->diff($fecha2);
         return $dias->days;
+    }
+
+    public function getPrecioTotal(){
+        return $this->getDias() * $this->getPrecio();
     }
 }
 
