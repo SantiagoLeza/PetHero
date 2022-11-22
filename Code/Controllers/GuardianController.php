@@ -40,6 +40,9 @@ class GuardianController{
             {   
                 header("location: ".FRONT_ROOT."Guardian/Home");    
             }
+            else{
+                require_once(VIEWS_PATH."register-guardian.php");
+            }
         }
        catch(Exception $ex){
             header("location: ".FRONT_ROOT."Home/Home/Error");
@@ -47,7 +50,7 @@ class GuardianController{
         
     }
 
-    public function Add($initialDate, $finalDate, $tamanio, $address, $description){
+    public function Add($initialDate, $finalDate, $tamanio, $address, $description, $precio){
         try{
             $tamanios = implode(", ", $tamanio);
             $user = $_SESSION['loggedUser'];
@@ -57,7 +60,8 @@ class GuardianController{
                 $finalDate,
                 $tamanios,
                 $address,
-                $description
+                $description,
+                $precio
             );
             header("location: ".FRONT_ROOT."Guardian/Home");
         }

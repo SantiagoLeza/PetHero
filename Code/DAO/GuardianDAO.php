@@ -44,19 +44,7 @@ class GuardianDAO{
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach($resultSet as $row){
-                $guardian = new Guardian(
-                    $row["idGuardian"],
-                    $row["idUsuario"],
-                    $row["valoracion"],
-                    $row["fechaInicio"],
-                    $row["fechaFin"],
-                    $row["saldoAcumulado"],
-                    $row["tamanioAceptado"],
-                    $row["direccionCuidado"],
-                    $row["descripcion"],
-                    $row["precio"]
-                );
-                array_push($guardianList, $guardian);
+                array_push($guardianList, $this->fetch($row));
             }
             return $guardianList;
         }
@@ -71,18 +59,7 @@ class GuardianDAO{
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, array("mail" => $mail));
             foreach($resultSet as $row){
-                $guardian = new Guardian(
-                    $row["idGuardian"],
-                    $row["idUsuario"],
-                    $row["valoracion"],
-                    $row["fechaInicio"],
-                    $row["fechaFin"],
-                    $row["saldoAcumulado"],
-                    $row["tamanioAceptado"],
-                    $row["direccionCuidado"],
-                    $row["descripcion"],
-                    $row["precio"]
-                );
+                $guardian = $this->fetch($row);
             }
             return $guardian;
         }
@@ -97,18 +74,7 @@ class GuardianDAO{
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, array("id" => $id));
             foreach($resultSet as $row){
-                $guardian = new Guardian(
-                    $row["idGuardian"],
-                    $row["idUsuario"],
-                    $row["valoracion"],
-                    $row["fechaInicio"],
-                    $row["fechaFin"],
-                    $row["saldoAcumulado"],
-                    $row["tamanioAceptado"],
-                    $row["direccionCuidado"],
-                    $row["descripcion"],
-                    $row["precio"]
-                );
+                $guardian = $this->fetch($row);
             }
             return $guardian;
         }
@@ -124,25 +90,7 @@ class GuardianDAO{
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, array("inicio" => $inicio, "fin" => $fin));
             foreach($resultSet as $row){
-                $guardian = new Guardian(
-                    $row["idUsuario"],
-                    $row["nombre"],
-                    $row["apellido"],
-                    $row["mail"],
-                    $row["clave"],
-                    $row["fechaNacimiento"],
-                    $row["dni"],
-                    $row["telefono"],
-                    $row["valoracion"],
-                    $row["fechaInicio"],
-                    $row["fechaFin"],
-                    $row["saldoAcumulado"],
-                    $row["tamanioAceptado"],
-                    $row["direccionCuidado"],
-                    $row["descripcion"],
-                    $row["precio"]
-                );
-                array_push($guardianList, $guardian);
+                array_push($guardianList, $this->fetch($row));
             }
             return $guardianList;
         }
@@ -239,6 +187,24 @@ class GuardianDAO{
         catch(Exception $ex){
             throw $ex;
         }
+    }
+
+    private function fetch($row){
+        if($row == null){
+            return null;
+        }
+        return new Guardian(
+            $row['idGuardian'],
+            $row['idUsuario'],
+            $row["valoracion"],
+            $row["fechaInicio"],
+            $row["fechaFin"],
+            $row["saldoAcumulado"],
+            $row["tamanioAceptado"],
+            $row["direccionCuidado"],
+            $row["descripcion"],
+            $row["precio"]
+        );
     }
 }
 ?>

@@ -58,7 +58,7 @@ if(isset($message)){
                 </thead>
                 <tbody>
                     <?php
-            
+                    
                     foreach($guardianes as $guardian){
                     ?>
                         <tr>

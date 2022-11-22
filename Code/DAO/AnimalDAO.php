@@ -44,21 +44,7 @@ class AnimalDAO{
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach($resultSet as $row){
-                $animal = new Animal(
-                    $row["idAnimales"],
-                    $row["tipo"],
-                    $row["raza"],
-                    $row["tamanio"],
-                    $row["nombre"],
-                    $row["edad"],
-                    $row["sexo"],
-                    $row["idImagenPerfil"],
-                    $row["idVideo"],
-                    $row["idCartaVacunacion"],
-                    $row["idDuenio"],
-                    $row["observaciones"]
-                );
-                array_push($animalList, $animal);
+                array_push($animalList, $this->fetch($row));
             }
             return $animalList;
         }
@@ -106,21 +92,7 @@ class AnimalDAO{
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, array("idUsuario" => $idUsuario));
             foreach($resultSet as $row){
-                $animal = new Animal(
-                    $row["idAnimales"],
-                    $row["tipo"],
-                    $row["raza"],
-                    $row["tamanio"],
-                    $row["nombre"],
-                    $row["edad"],
-                    $row["sexo"],
-                    $row["idImagenPerfil"],
-                    $row["idVideo"],
-                    $row["idCartaVacunacion"],
-                    $row["idDuenio"],
-                    $row["observaciones"]
-                );
-                array_push($animalList, $animal);
+                array_push($animalList, $this->fetch($row));
             }
         }
         catch(Exception $ex){
@@ -137,25 +109,32 @@ class AnimalDAO{
             on a.idTipoAnimal = ta.idTipoAnimal WHERE idAnimales = :idAnimal";
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, array("idAnimal" => $idAnimal));
-            $animal = new Animal(
-                $resultSet[0]["idAnimales"],
-                $resultSet[0]["tipo"],
-                $resultSet[0]["raza"],
-                $resultSet[0]["tamanio"],
-                $resultSet[0]["nombre"],
-                $resultSet[0]["edad"],
-                $resultSet[0]["sexo"],
-                $resultSet[0]["idImagenPerfil"],
-                $resultSet[0]["idVideo"],
-                $resultSet[0]["idCartaVacunacion"],
-                $resultSet[0]["idDuenio"],
-                $resultSet[0]["observaciones"]
-            );
+            return $this->fetch($resultSet[0]);
         }
         catch(Exception $ex){
             throw $ex;
         }
 
-        return $animal;
+        return null;
+    }
+
+    private function fetch($row){
+        if($row == null){
+            return null;
+        }
+        return new Animal(
+            $row["idAnimales"],
+            $row["tipo"],
+            $row["raza"],
+            $row["tamanio"],
+            $row["nombre"],
+            $row["edad"],
+            $row["sexo"],
+            $row["idImagenPerfil"],
+            $row["idVideo"],
+            $row["idCartaVacunacion"],
+            $row["idDuenio"],
+            $row["observaciones"]
+        );
     }
 }

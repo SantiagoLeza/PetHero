@@ -23,7 +23,7 @@ require_once(CONFIG_PATH."CheckLog.php");
                     <?php
                     echo "<img src='".IMG_PATH."/". $pet->getTipo() .".png' alt='' class='icono logo-". $pet->getTipo() ."'>";
                     echo "</div>";
-                    echo "<p>".$pet->getNombre()."</p>";
+                    echo "<a style='color:black;' href='".FRONT_ROOT.'User/PetInfo/'.$pet->getIdAnimales()."'><p>".$pet->getNombre()."</p></a>";
                     echo "<div><p>".$pet->getRaza()."</p>";
                     echo "<p>".$pet->getEdad()." años</p></div>";
                     echo "</div>";

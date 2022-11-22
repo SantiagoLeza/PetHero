@@ -46,6 +46,11 @@ require_once(CONFIG_PATH."CheckLog.php");
             </div>
 
             <div>
+                <label for="precio">Indique su precio</label>
+                <input type="number" name="precio" id="precio" required>
+            </div>
+
+            <div>
                 <label for="description">Describete</label>
                 <br>
                 <textarea name="description" id="description" placeholder="Escribe aqui..." required></textarea>

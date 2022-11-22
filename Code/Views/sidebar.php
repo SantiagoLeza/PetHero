@@ -33,14 +33,6 @@
                     <img src="<?php echo IMG_PATH.'petIcon.png' ?>" alt="My Pets">
                     <p>Mascotas</p>
                 </a>
-                <a>
-                    <img src="<?php echo IMG_PATH.'supportIcon.png' ?>" alt="Support">
-                    <p>Soporte</p>
-                </a>
-                <a>
-                    <img src="<?php echo IMG_PATH.'configIcon.png' ?>" alt="Profile">
-                    <p>Perfil</p>
-                </a>
                 <a href="<?php echo FRONT_ROOT.'Guardian/ShowRegisterView' ?>">
                     <img src="<?php echo IMG_PATH.'cucha.png'?>" alt="Guardian">
                     <p>Guardian</p>

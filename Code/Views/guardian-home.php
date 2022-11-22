@@ -60,33 +60,38 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
             </div>
             <div id="contentPendientes">
             <?php
-            foreach($reservas as $reserva){
-                if($reserva->getEstado() == 'Pendiente'){
-                    ?>
-                    <hr>
-                    <div class="reserva reservaPend">
-                        <div>
-                            <p>Desde:  <?php echo $reserva->getFechaInicio()?></p>
-                            <p>Hasta:  <?php echo $reserva->getFechaFin()?></p>
-                            <p>
-                                $<?php echo $reserva->getPrecio(); ?>
-                            </p>
-                            <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                            </a>
+            if($reservas == null){
+                echo "<p>No hay reservas pendientes</p>";
+            }
+            else{
+                foreach($reservas as $reserva){
+                    if($reserva->getEstado() == 'Pendiente'){
+                        ?>
+                        <hr>
+                        <div class="reserva reservaPend">
+                            <div>
+                                <p>Desde:  <?php echo $reserva->getFechaInicio()?></p>
+                                <p>Hasta:  <?php echo $reserva->getFechaFin()?></p>
+                                <p>
+                                    $<?php echo $reserva->getPrecio(); ?>
+                                </p>
+                                <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
+                                    <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                                </a>
+                            </div>
+                            <div class="buttons">
+                                <form action="<?php echo FRONT_ROOT.'Guardian/AceptarReserva' ?>" method="post">
+                                    <input type="hidden" name="idReserva" value="<?php echo $reserva->getIdReserva(); ?>">
+                                    <button type="submit" class="aceptar">✓</button>
+                                </form>
+                                <form action="<?php echo FRONT_ROOT.'Guardian/RechazarReserva' ?>" method="post">
+                                    <input type="hidden" name="idReserva" value="<?php echo $reserva->getIdReserva(); ?>">
+                                    <button type="submit" class="cancelar">X</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="buttons">
-                            <form action="<?php echo FRONT_ROOT.'Guardian/AceptarReserva' ?>" method="post">
-                                <input type="hidden" name="idReserva" value="<?php echo $reserva->getIdReserva(); ?>">
-                                <button type="submit" class="aceptar">✓</button>
-                            </form>
-                            <form action="<?php echo FRONT_ROOT.'Guardian/RechazarReserva' ?>" method="post">
-                                <input type="hidden" name="idReserva" value="<?php echo $reserva->getIdReserva(); ?>">
-                                <button type="submit" class="cancelar">X</button>
-                            </form>
-                        </div>
-                    </div>
-                    <?php
+                        <?php
+                    }
                 }
             }
             ?>
@@ -99,30 +104,35 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
             </div>
             <div id="contentConfirmadas">
             <?php
-            foreach($reservas as $reserva){
-                if($reserva->getEstado() == 'Aceptado'){
-                    ?>
-                    <hr>
-                    <div class="reserva">
-                        <p>
-                            <?php echo $reserva->getFechaInicio() . ' | ' . $reserva->getFechaFin(); ?>
-                        </p>
-                        <p>
-                            $<?php echo $reserva->getPrecio(); ?>
-                        </p>
-                        <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                            <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                        </a>
-                        <?php  
-                            if($reserva->getPago() == 0){
+            if($reservas == null){
+                echo "<p>No hay reservas confirmadas</p>";
+            }
+            else{
+                foreach($reservas as $reserva){
+                    if($reserva->getEstado() == 'Aceptado'){
                         ?>
-                                <p>No pagado</p>
-
-                        <?php } else{ ?>
+                        <hr>
+                        <div class="reserva">
+                            <p>
+                                <?php echo $reserva->getFechaInicio() . ' | ' . $reserva->getFechaFin(); ?>
+                            </p>
+                            <p>
+                                $<?php echo $reserva->getPrecio(); ?>
+                            </p>
+                            <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
+                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                            </a>
+                            <?php  
+                                if($reserva->getPago() == 0){
+                            ?>
                                     <p>No pagado</p>
-                                  <?php } ?>
-                    </div>
-                    <?php
+    
+                            <?php } else{ ?>
+                                        <p>No pagado</p>
+                                      <?php } ?>
+                        </div>
+                        <?php
+                    }
                 }
             }
             ?>
@@ -135,26 +145,31 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
             </div>
             <div id="contentEnCurso">
             <?php
-            foreach($reservas as $reserva){
-                if($reserva->getEstado() == 'En curso'){
-                    ?>
-                    <hr>
-                    <div class="reserva">
-                        <div>
-                            <p>
-                                <?php echo $reserva->getFechaInicio() . ' | ' . $reserva->getFechaFin(); ?>
-                            </p>
-                            <p>
-                                $<?php echo $reserva->getPrecio(); ?>
-                            </p>
-                            <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                            </a>
-                        </div>
-                    </div>
-                    <?php
-                }
+            if($reservas == null){
+                echo "<p>No hay reservas en curso</p>";
             }
+            else {
+                foreach($reservas as $reserva){
+                    if($reserva->getEstado() == 'En curso'){
+                        ?>
+                        <hr>
+                        <div class="reserva">
+                            <div>
+                                <p>
+                                    <?php echo $reserva->getFechaInicio() . ' | ' . $reserva->getFechaFin(); ?>
+                                </p>
+                                <p>
+                                    $<?php echo $reserva->getPrecio(); ?>
+                                </p>
+                                <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
+                                    <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                                </a>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                }
+        }
             ?>
             </div>
         </div>
@@ -165,21 +180,26 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
             </div>
             <div id="contentFinalizadas">
             <?php
-            foreach($reservas as $reserva){
-                if($reserva->getEstado() == 'Finalizado'){
-                    ?>
-                    <div class="reserva">
-                        <p>
-                            <?php echo $reserva->getFechaInicio() . ' | ' . $reserva->getFechaFin(); ?>
-                        </p>
-                        <p>
-                            $<?php echo $reserva->getPrecio(); ?>
-                        </p>
-                        <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                            <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                        </a>
-                    </div>
-                    <?php
+            if($reservas == null){
+                echo "<p>No hay reservas finalizadas</p>";
+            }
+            else{
+                foreach($reservas as $reserva){
+                    if($reserva->getEstado() == 'Finalizado'){
+                        ?>
+                        <div class="reserva">
+                            <p>
+                                <?php echo $reserva->getFechaInicio() . ' | ' . $reserva->getFechaFin(); ?>
+                            </p>
+                            <p>
+                                $<?php echo $reserva->getPrecio(); ?>
+                            </p>
+                            <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
+                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                            </a>
+                        </div>
+                        <?php
+                    }
                 }
             }
             ?>
@@ -192,26 +212,32 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
             </div>
             <div id="contentCancelados">
             <?php
-            foreach($reservas as $reserva){
-                if($reserva->getEstado() == 'Cancelado'){
-                    ?>
-                    <hr>
-                    <div class="reserva">
-                        <div>
-                            <?php echo $reserva->getFechaInicio() . ' | ' . $reserva->getFechaFin(); ?>
-                        </div>
-                        <div>
-                            <p>
-                                $<?php echo $reserva->getPrecio(); ?>
-                            </p>
-                            <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
-                                <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
-                            </a>
-                        </div>
-                    </div>
-                    <?php
-                }
+            if($reservas == null){
+                echo "<p>No hay reservas canceladas</p>";
             }
+            else
+            {
+                foreach($reservas as $reserva){
+                    if($reserva->getEstado() == 'Cancelado'){
+                        ?>
+                        <hr>
+                        <div class="reserva">
+                            <div>
+                                <?php echo $reserva->getFechaInicio() . ' | ' . $reserva->getFechaFin(); ?>
+                            </div>
+                            <div>
+                                <p>
+                                    $<?php echo $reserva->getPrecio(); ?>
+                                </p>
+                                <a href="<?php echo FRONT_ROOT.'User/PetInfo/'.$reserva->getIdAnimal(); ?>">
+                                    <?php echo $this->animalDAO->getAnimalById($reserva->getIdAnimal())->getNombre(); ?>
+                                </a>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                }
+        }
             ?>
             </div>
         </div>

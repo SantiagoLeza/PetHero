@@ -47,18 +47,7 @@ class UserDAO{
             $this->connection = Connection::getInstance();
             $resultSet = $this->connection->Execute($query);
             foreach($resultSet as $row){
-                $user = new User(
-                    $row["idUsuario"],
-                    $row["mail"],
-                    $row["contrasenia"],
-                    $row["nombre"],
-                    $row["apellido"],
-                    $row["numeroTelefono"],
-                    $row["fechaDeNacimiento"],
-                    $resultSet[0]["idCiudad"],
-                $resultSet[0]["direccion"]
-                );
-                array_push($userList, $user);
+                array_push($userList, $this->fetch($row));
             }
             return $userList;
         }
@@ -76,18 +65,7 @@ class UserDAO{
             if(count($resultSet) == 0){
                 return null;
             }
-            $user = new User(
-                $resultSet[0]["idUsuario"],
-                $resultSet[0]["mail"],
-                $resultSet[0]["contrasenia"],
-                $resultSet[0]["nombre"],
-                $resultSet[0]["apellido"],
-                $resultSet[0]["numeroTelefono"],
-                $resultSet[0]["fechaDeNacimiento"],
-                $resultSet[0]["idCiudad"],
-                $resultSet[0]["direccion"]
-            );
-            return $user;
+            return $this->fetch($resultSet[0]);
         }
         catch(Exception $ex){
             throw $ex;
@@ -103,21 +81,27 @@ class UserDAO{
             if(count($resultSet) == 0){
                 return null;
             }
-            $user = new User(
-                $resultSet[0]["idUsuario"],
-                $resultSet[0]["mail"],
-                $resultSet[0]["contrasenia"],
-                $resultSet[0]["nombre"],
-                $resultSet[0]["apellido"],
-                $resultSet[0]["numeroTelefono"],
-                $resultSet[0]["fechaDeNacimiento"],
-                $resultSet[0]["idCiudad"],
-                $resultSet[0]["direccion"]
-            );
-            return $user;
+            return $this->fetch($resultSet[0]);
         }
         catch(Exception $ex){
             throw $ex;
         }
+    }
+
+    private function fetch($row){
+        if ($row == null){
+            return null;
+        }
+        return new User(
+            $row["idUsuario"],
+            $row["mail"],
+            $row["contrasenia"],
+            $row["nombre"],
+            $row["apellido"],
+            $row["numeroTelefono"],
+            $row["fechaDeNacimiento"],
+            $row["idCiudad"],
+            $row["direccion"]
+        );
     }
 }
