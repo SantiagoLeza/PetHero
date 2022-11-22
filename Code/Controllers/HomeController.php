@@ -12,9 +12,14 @@ class HomeController{
     private $archivosDAO;
 
     public function __construct(){
-        $this->guardianDAO = new GuardianDAO();
-        $this->archivosDAO = new ArchivosDAO();
-        $this->ciudadDAO = new CiudadDAO();
+        try{
+            $this->guardianDAO = new GuardianDAO();
+            $this->archivosDAO = new ArchivosDAO();
+            $this->ciudadDAO = new CiudadDAO();
+        }
+        catch(Exception $ex){
+            require_once(VIEWS_PATH."error.php");
+        }
     }
 
     public function Index(){

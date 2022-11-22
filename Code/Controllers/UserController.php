@@ -48,7 +48,7 @@ class UserController{
     public function PetsView(){
         try
         {
-            $pets = $this->AnimalDAO->getAll();
+            $pets = $this->AnimalDAO->getAnimalByID($id);
             $user = $this->userDAO->getById($_SESSION['loggedUser']->getIdUsuario());
             require_once(VIEWS_PATH."petsList.php");
         }

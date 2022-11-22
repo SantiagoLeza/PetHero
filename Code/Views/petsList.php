@@ -15,7 +15,7 @@ require_once(CONFIG_PATH."CheckLog.php");
     <div class="pet-cards">
         <?php
             foreach($pets as $pet){
-                if($pet->getIdDuenio() == $user->getIdUsuario()){
+                {
                     echo "<div class='pet-card'>";
                     echo "<div class='pet-image'>";
                     ?>
