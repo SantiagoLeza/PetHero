@@ -20,11 +20,15 @@ use Models\Reserva as Reserva;
 
 use DAO\CiudadDAO as CiudadDAO;
 
+use Controllers\MailController as MailController;
+
 class UserController{
     private $userDAO;
     private $AnimalDAO;
     private $guardianDAO;
     private $reservaDAO;
+    
+    private $mailController;
 
     public function __construct(){
         $this->userDAO = new UserDAO();
@@ -33,6 +37,8 @@ class UserController{
         $this->reservaDAO = new ReservaDAO();
         $this->archivosDAO = new ArchivosDAO();
         $this->ciudadDAO = new CiudadDAO();
+
+        $this->mailController = new MailController();
     }
 
     public function ShowSignupView(){
@@ -247,10 +253,26 @@ class UserController{
 
     public function PagarReserva($idReserva, $numeroTarjeta, $fechaVencimiento, $nombreTitular, $cvv, $monto){
         try{
+            
             $this->reservaDAO->PagarReserva($idReserva, $numeroTarjeta, $fechaVencimiento, $nombreTitular, $cvv, $monto);
+
             $this->guardianDAO->AddSaldo(
                 $this->reservaDAO->GetById($idReserva)->getIdGuardian(),
                 $this->reservaDAO->GetById($idReserva)->getPrecioTotal() * 0.5
+            );
+
+            $factura = $this->reservaDAO->getFacturaById($idReserva);
+            $reservation = $this->reservaDAO->getById($idReserva);
+            $nombreMascota = $this->AnimalDAO->getAnimalByID($reservation->getIdAnimal())->getNombre();
+
+            $this->mailController->SendCupon(
+                $_SESSION['loggedUser']->getMail(),
+                $factura['fecha'],
+                $factura['razonSocial'],
+                $monto,
+                $reservation->getFechaInicio(),
+                $reservation->getFechaFin(),
+                $nombreMascota
             );
             header("location: ".FRONT_ROOT."User/ReservasView");
         }

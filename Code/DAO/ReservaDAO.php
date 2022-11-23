@@ -21,15 +21,16 @@ class ReservaDAO
         {
             $this->connection = Connection::getInstance();
 
+            echo "1";
             $this->connection->ExecuteNonQuery($query, array(
                 "idGuardian" => $idGuardian,
                 "idAnimal" => $idAnimal,
                 "fechaInicio" => $fechaInicio,
                 "fechaFin" => $fechaFin,
                 "precio" => $precio,
-                "estado" => $estado,
-                "pago" => $pago
+                "estado" => $estado
             ));
+            echo "2";
             
         }
         catch(Exception $ex)
@@ -49,18 +50,9 @@ class ReservaDAO
             $reservas = array();
 
             foreach($result as $row)
-            {
-                $reserva = new Reserva(
-                    $row["idReserva"],
-                    $row["idGuardian"],
-                    $row["idAnimal"],
-                    $row["fechaInicio"],
-                    $row["fechaFin"],
-                    $row["precio"],
-                    $row["estado"],
-                    $row["pago"]
-                );
-                array_push($reservas, $reserva);
+            { 
+                array_push($reservas, $this->fetch($row));
+                
             }
 
             return $reservas;
@@ -87,17 +79,7 @@ class ReservaDAO
 
             foreach($result as $row)
             {
-                $reserva = new Reserva(
-                    $row["idReserva"],
-                    $row["idGuardian"],
-                    $row["idAnimal"],
-                    $row["fechaInicio"],
-                    $row["fechaFin"],
-                    $row["precio"],
-                    $row["estado"],
-                    $row["pago"]
-                );
-                array_push($reservas, $reserva);
+                array_push($reservas, $this->fetch($row));
             }
 
             return $reservas;
@@ -124,17 +106,7 @@ class ReservaDAO
 
             foreach($result as $row)
             {
-                $reserva = new Reserva(
-                    $row["idReserva"],
-                    $row["idGuardian"],
-                    $row["idAnimal"],
-                    $row["fechaInicio"],
-                    $row["fechaFin"],
-                    $row["precio"],
-                    $row["estado"],
-                    $row["pago"]
-                );
-                array_push($reservas, $reserva);
+                array_push($reservas, $this->fetch($row));
             }
 
             return $reservas;
@@ -161,17 +133,7 @@ class ReservaDAO
 
             foreach($result as $row)
             {
-                $reserva = new Reserva(
-                    $row["idReserva"],
-                    $row["idGuardian"],
-                    $row["idAnimal"],
-                    $row["fechaInicio"],
-                    $row["fechaFin"],
-                    $row["precio"],
-                    $row["estado"],
-                    $row["pago"]
-                );
-                array_push($reservas, $reserva);
+                array_push($reservas, $this->fetch($row));
             }
 
             return $reservas;
@@ -277,16 +239,7 @@ class ReservaDAO
             $this->connection = Connection::getInstance();
             $result = $this->connection->Execute($query, array("idReserva" => $idReserva));
 
-            $reserva = new Reserva(
-                $result[0]["idReserva"],
-                $result[0]["idGuardian"],
-                $result[0]["idAnimal"],
-                $result[0]["fechaInicio"],
-                $result[0]["fechaFin"],
-                $result[0]["precio"],
-                $result[0]["estado"],
-                $result[0]["pago"]
-            );
+            $reserva = $this->fetch($result[0]);
 
             return $reserva;
         }
@@ -316,17 +269,7 @@ class ReservaDAO
 
             foreach($result as $row)
             {
-                $reserva = new Reserva(
-                    $row["idReserva"],
-                    $row["idGuardian"],
-                    $row["idAnimal"],
-                    $row["fechaInicio"],
-                    $row["fechaFin"],
-                    $row["precio"],
-                    $row["estado"],
-                    $row["pago"]
-                );
-                array_push($reservas, $reserva);
+                array_push($reservas, $this->fetch($row));
             }
 
             return $reservas;
@@ -345,6 +288,7 @@ class ReservaDAO
         {
             $this->connection = Connection::getInstance();
             $this->connection->ExecuteNonQuery($query, array("idReserva" => $idReserva));
+            
             $query2 = "CALL cargarPago(:nTarjeta, :fechaV, :nombre, :cvv, :monto, :idReserva);";
             $this->connection->ExecuteNonQuery($query2, array(
                 "nTarjeta" => $numeroTarjeta,
@@ -359,6 +303,48 @@ class ReservaDAO
         {
             throw $ex;
         }
+    }
+
+    public function getFacturaById($idReserva){
+        $query = "SELECT * FROM Factura
+        JOIN Pagos ON Factura.idPago = Pagos.idPagos
+        WHERE Pagos.idReserva = :idReserva";
+
+        try
+        {
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->Execute($query, array("idReserva" => $idReserva));
+
+            return array(
+                "fecha" => $result[0]["fechaFactura"],
+                "razonSocial" => $result[0]["razonSocial"],
+            );
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+        
+    }
+
+
+    private function fetch ($row)
+    {
+        if($row == null)
+        {
+            return null;
+        }
+        return new Reserva(
+            $row["idReserva"],
+            $row["idGuardian"],
+            $row["idAnimal"],
+            $row["fechaInicio"],
+            $row["fechaFin"],
+            $row["precio"],
+            $row["estado"],
+            $row["pago"]
+        );
+
     }
 }
 

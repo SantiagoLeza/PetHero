@@ -19,7 +19,7 @@ try{
     Router::Route(new Request());
 }
 catch(Exception $ex){
-    require_once(VIEWS_PATH."error.php");
+    //require_once(VIEWS_PATH."error.php");
 }
 
 ?>
