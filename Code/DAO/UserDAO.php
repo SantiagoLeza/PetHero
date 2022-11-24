@@ -88,6 +88,17 @@ class UserDAO{
         }
     }
 
+    public function changePassword($id, $password){
+        try{
+            $query = "UPDATE Usuarios SET contrasenia = :password WHERE idUsuario = :id";
+            $this->connection = Connection::getInstance();
+            $this->connection->ExecuteNonQuery($query, array("id" => $id, "password" => $password));
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
+
     private function fetch($row){
         if ($row == null){
             return null;

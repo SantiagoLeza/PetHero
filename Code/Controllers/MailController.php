@@ -79,6 +79,37 @@ class MailController{
         );
     }
 
+    public function SendCambioContra($to, $solicitud){
+        $link = $this->getLink($solicitud);
+        echo $link."<br>";
+        $body = "
+        <html>
+            <head>
+                <title>Cambio de contraseña</title>
+            </head>
+            <body style='background-color: #FCAA55; color:white;'>
+                <h1 style='text-aline:center;'>Cambio de contraseña</h1>
+                <p>Para cambiar tu contraseña, ingresa : <a href='$link'>aqui</a></p>
+            </body>
+        
+        ";
+        $planeMessage = "
+        Cambio de contraseña\n
+        Para cambiar tu contraseña, ingresa al siguiente link: $link\n
+        ";
+        
+        $this->sendMail(
+            $to,
+            'Cambio de contraseña',
+            $body,
+            $planeMessage
+        );
+    }
+
+    private function getLink($solicitud){
+        $link = "http://localhost:3000/Home/ChangePassLand/".$solicitud['idSolicitudCambio'];
+        return $link;
+    }
 }
 
 ?>

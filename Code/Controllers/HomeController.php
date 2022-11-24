@@ -3,30 +3,45 @@
 namespace Controllers;
 
 use DAO\GuardianDAO as GuardianDAO;
+use DAO\UserDAO as UserDAO;
 use DAO\ArchivosDAO as ArchivosDAO;
 use DAO\CiudadDAO as CiudadDAO;
+use DAO\SolicitudCambioDAO as SolicitudCambioDAO;
+
+use Controllers\MailController as MailController;
+
+use DateTime;
 
 class HomeController{
 
     private $guardianDAO;
     private $archivosDAO;
+    private $ciudadDAO;
+    private $solicitudDAO;
+    private $userDAO;
+
+    private $mailController;
 
     public function __construct(){
         try{
             $this->guardianDAO = new GuardianDAO();
             $this->archivosDAO = new ArchivosDAO();
             $this->ciudadDAO = new CiudadDAO();
+            $this->solicitudDAO = new SolicitudCambioDAO();
+            $this->userDAO = new UserDAO();
+
+            $this->mailController = new MailController();
         }
         catch(Exception $ex){
             require_once(VIEWS_PATH."error.php");
         }
     }
 
-    public function Index(){
+    public function Index($message = ''){
         require_once(VIEWS_PATH."lobby.php");
     }
 
-    public function Login(){
+    public function Login($message = ''){
         require_once(VIEWS_PATH."login.php");
     }
 
@@ -36,7 +51,7 @@ class HomeController{
             require_once(VIEWS_PATH."signup.php");
         }
         catch(Exception $ex){
-            header("location: ".FRONT_ROOT."Home/Home/Error");
+            header("location: ".FRONT_ROOT."Home/Index/Error");
         }
     }
 
@@ -107,6 +122,66 @@ class HomeController{
         catch(Exception $ex){
             header("location: ".FRONT_ROOT."Home/Home/Error");
         }
+    }
+
+    public function ShowChangePassView(){
+        require_once(VIEWS_PATH."req-change-pass.php");
+    }
+
+    public function generarSolicitudCambio($mail){
+        try{
+            $user = $this->userDAO->getByMail($mail);
+            if($user != null){
+                $soli = $this->solicitudDAO->add($user->getIdUsuario());
+                $this->mailController->SendCambioContra($user->getMail(), $soli);
+                header("location: ".FRONT_ROOT."Home/Login/LinkEnviado");
+            }
+            else{
+                header("location: ".FRONT_ROOT."Home/Index/Error");
+            }
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Index/Error");
+        }
+    }
+
+    public function ChangePassLand($idSolicitud){
+        $solicitud = $this->solicitudDAO->getById($idSolicitud);
+
+        if($solicitud != null && $this->checkSolicitud($solicitud)){
+            $user = $this->userDAO->getById($solicitud['idUsuario']);
+            $key = uniqid();
+            $_SESSION['uuid'] = $key;
+            header("location: ".FRONT_ROOT."Home/ShowChangePage/".$solicitud['idUsuario']."/".$solicitud['idSolicitudCambio']."/".$key);
+        }
+        else{
+            header("location: ".FRONT_ROOT."Home/Index/LinkCaducado");
+        }
+    }
+
+    public function ShowChangePage($idUser, $idSolicitud, $key){
+        $user = $this->userDAO->getById($idUser);
+        if($_SESSION['uuid'] == $key){
+            $_SESSION['uuid'] = '';
+            require_once(VIEWS_PATH."change-pass.php");
+        }
+        else{
+            header("location: ".FRONT_ROOT."Home/Index/Error");
+        }
+    }
+
+    private function checkSolicitud($solicitud){
+        $fecha = new DateTime($solicitud['fecha']);
+        $fechaActual = new DateTime();
+        
+        $interval = $fecha->diff($fechaActual);
+        if($interval->h > 2){
+            return false;
+        }
+        if($solicitud['estado'] == 1){
+            return false;
+        }
+        return true;
     }
 }
 

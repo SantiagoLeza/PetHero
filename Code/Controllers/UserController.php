@@ -20,6 +20,8 @@ use Models\Reserva as Reserva;
 
 use DAO\CiudadDAO as CiudadDAO;
 
+use DAO\SolicitudCambioDAO as SolicitudCambioDAO;
+
 use Controllers\MailController as MailController;
 
 class UserController{
@@ -27,6 +29,8 @@ class UserController{
     private $AnimalDAO;
     private $guardianDAO;
     private $reservaDAO;
+    private $ciudadDAO;
+    private $solicitudDAO;
     
     private $mailController;
 
@@ -37,6 +41,7 @@ class UserController{
         $this->reservaDAO = new ReservaDAO();
         $this->archivosDAO = new ArchivosDAO();
         $this->ciudadDAO = new CiudadDAO();
+        $this->solicitudDAO = new SolicitudCambioDAO();
 
         $this->mailController = new MailController();
     }
@@ -47,7 +52,7 @@ class UserController{
             require_once(VIEWS_PATH."signup.php");
         }
         catch(Exception $ex){
-            header("location: ".FRONT_ROOT."Home/Home/Error");
+            header("location: ".FRONT_ROOT."Home/Index/Error");
         }
     }
 
@@ -168,7 +173,7 @@ class UserController{
             }
         }
         catch(Exception $ex){
-            header("location: ".FRONT_ROOT."Home/Home/Error");
+            header("location: ".FRONT_ROOT."Home/Index/Error");
         }
     }
 
@@ -206,7 +211,7 @@ class UserController{
             }
         }
         catch(Exception $ex){
-            header("location: ".FRONT_ROOT."Home/Home/Error");
+            header("location: ".FRONT_ROOT."Home/Index/Error");
         }
     }
 
@@ -285,6 +290,23 @@ class UserController{
     {
         $Animal = $this->AnimalDAO->getAnimalByID($id);
         require_once(VIEWS_PATH."pet-info.php");
+    }
+
+    public function ChangePass($idUsuario, $idSolicitud, $pass1, $pass2){
+        try{
+            if($pass1 == $pass2){
+                $this->userDAO->changePassword($idUsuario, $pass1);
+                $this->solicitudDAO->cambiarEstado($idSolicitud);
+                header("location: ".FRONT_ROOT."Home/Login/PasswordChanged");
+            }
+            else{
+                $message = "Las contraseñas no coinciden";
+                require_once(VIEWS_PATH."change-pass.php");
+            }
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Index/Error");
+        }
     }
 
 }

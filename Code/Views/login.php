@@ -34,7 +34,7 @@ if(!empty($message)){
 
         <a class="registrarse" href="../User/ShowSignupView"><p>Registrarse</p></a>
 
-        <a class="recuperar-contra" href="#">Olvidaste tu contraseña?</a>
+        <a class="recuperar-contra" href="<?php echo FRONT_ROOT.'Home/ShowChangePassView' ?>">Olvidaste tu contraseña?</a>
     </div>
         
 </body>

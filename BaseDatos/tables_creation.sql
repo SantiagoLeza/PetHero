@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`TipoAnimal` (
   `raza` VARCHAR(45) NOT NULL,
   `tamanio` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTipoAnimal`),
-  UNIQUE INDEX `raza_UNIQUE` (`raza` ASC) VISIBLE)
+  UNIQUE INDEX `raza_UNIQUE` (`raza` ASC) )
 ENGINE = InnoDB;
 
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`Ciudades` (
   `nombre` VARCHAR(45) NOT NULL,
   `codigoPostal` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`idCiudades`),
-  UNIQUE INDEX `codigoPostal_UNIQUE` (`codigoPostal` ASC) VISIBLE)
+  UNIQUE INDEX `codigoPostal_UNIQUE` (`codigoPostal` ASC) )
 ENGINE = InnoDB;
 
 
@@ -56,9 +56,9 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`Usuarios` (
   `idCiudad` INT NOT NULL,
   `direccion` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idUsuario`),
-  INDEX `FK_UsuarioCiudad_idx` (`idCiudad` ASC) VISIBLE,
-  UNIQUE INDEX `mail_UNIQUE` (`mail` ASC) VISIBLE,
-  UNIQUE INDEX `numeroTelefono_UNIQUE` (`numeroTelefono` ASC) VISIBLE,
+  INDEX `FK_UsuarioCiudad_idx` (`idCiudad` ASC) ,
+  UNIQUE INDEX `mail_UNIQUE` (`mail` ASC) ,
+  UNIQUE INDEX `numeroTelefono_UNIQUE` (`numeroTelefono` ASC) ,
   CONSTRAINT `FK_UsuarioCiudad`
     FOREIGN KEY (`idCiudad`)
     REFERENCES `PetHero`.`Ciudades` (`idCiudades`)
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`ImagenAnimal` (
   `idImagenAnimal` INT NOT NULL AUTO_INCREMENT,
   `urlImagen` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idImagenAnimal`),
-  UNIQUE INDEX `urlImagen_UNIQUE` (`urlImagen` ASC) VISIBLE)
+  UNIQUE INDEX `urlImagen_UNIQUE` (`urlImagen` ASC) )
 ENGINE = InnoDB;
 
 
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`VideoAnimal` (
   `idVideoAnimal` INT NOT NULL AUTO_INCREMENT,
   `urlVideo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idVideoAnimal`),
-  UNIQUE INDEX `urlVideo_UNIQUE` (`urlVideo` ASC) VISIBLE)
+  UNIQUE INDEX `urlVideo_UNIQUE` (`urlVideo` ASC) )
 ENGINE = InnoDB;
 
 
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`CartaVacunacion` (
   `idCartaVacunacion` INT NOT NULL AUTO_INCREMENT,
   `urlImagen` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idCartaVacunacion`),
-  UNIQUE INDEX `urlImagen_UNIQUE` (`urlImagen` ASC) VISIBLE)
+  UNIQUE INDEX `urlImagen_UNIQUE` (`urlImagen` ASC) )
 ENGINE = InnoDB;
 
 
@@ -115,14 +115,14 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`Animales` (
   `idDuenio` INT NOT NULL,
   `observaciones` VARCHAR(150) NULL DEFAULT '\"\"',
   PRIMARY KEY (`idAnimales`),
-  INDEX `FK_AnimalTipo_idx` (`idTipoAnimal` ASC) VISIBLE,
-  INDEX `FK_AnimalDuenio_idx` (`idDuenio` ASC) VISIBLE,
-  INDEX `FK_AnimalImagenPerfil_idx` (`idImagenPerfil` ASC) VISIBLE,
-  INDEX `FK_AnimalVideo_idx` (`idVideo` ASC) VISIBLE,
-  INDEX `FK_AnimalVacuna_idx` (`idCartaVacunacion` ASC) VISIBLE,
-  UNIQUE INDEX `idImagenPerfil_UNIQUE` (`idImagenPerfil` ASC) VISIBLE,
-  UNIQUE INDEX `idVideo_UNIQUE` (`idVideo` ASC) VISIBLE,
-  UNIQUE INDEX `idCartaVacunacion_UNIQUE` (`idCartaVacunacion` ASC) VISIBLE,
+  INDEX `FK_AnimalTipo_idx` (`idTipoAnimal` ASC) ,
+  INDEX `FK_AnimalDuenio_idx` (`idDuenio` ASC) ,
+  INDEX `FK_AnimalImagenPerfil_idx` (`idImagenPerfil` ASC) ,
+  INDEX `FK_AnimalVideo_idx` (`idVideo` ASC) ,
+  INDEX `FK_AnimalVacuna_idx` (`idCartaVacunacion` ASC) ,
+  UNIQUE INDEX `idImagenPerfil_UNIQUE` (`idImagenPerfil` ASC) ,
+  UNIQUE INDEX `idVideo_UNIQUE` (`idVideo` ASC) ,
+  UNIQUE INDEX `idCartaVacunacion_UNIQUE` (`idCartaVacunacion` ASC) ,
   CONSTRAINT `FK_AnimalTipo`
     FOREIGN KEY (`idTipoAnimal`)
     REFERENCES `PetHero`.`TipoAnimal` (`idTipoAnimal`)
@@ -165,8 +165,8 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`Guardianes` (
   `direccionCuidado` VARCHAR(45) NOT NULL,
   `descripcion` VARCHAR(150) NULL,
   PRIMARY KEY (`idGuardian`),
-  INDEX `FK_GuardianUsuario_idx` (`idUsuario` ASC) VISIBLE,
-  UNIQUE INDEX `idUsuario_UNIQUE` (`idUsuario` ASC) VISIBLE,
+  INDEX `FK_GuardianUsuario_idx` (`idUsuario` ASC) ,
+  UNIQUE INDEX `idUsuario_UNIQUE` (`idUsuario` ASC) ,
   CONSTRAINT `FK_GuardianUsuario`
     FOREIGN KEY (`idUsuario`)
     REFERENCES `PetHero`.`Usuarios` (`idUsuario`)
@@ -187,8 +187,8 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`Reservas` (
   `precio` FLOAT NOT NULL,
   `estado` VARCHAR(30) NULL DEFAULT 'pendiente',
   PRIMARY KEY (`idReserva`),
-  INDEX `FK_ReservaGuardian_idx` (`idGuardian` ASC) VISIBLE,
-  INDEX `FK_ReservaAnimal_idx` (`idAnimal` ASC) VISIBLE,
+  INDEX `FK_ReservaGuardian_idx` (`idGuardian` ASC) ,
+  INDEX `FK_ReservaAnimal_idx` (`idAnimal` ASC) ,
   CONSTRAINT `FK_ReservaGuardian`
     FOREIGN KEY (`idGuardian`)
     REFERENCES `PetHero`.`Guardianes` (`idGuardian`)
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`Tarjetas` (
   `cvv` INT(3) NOT NULL,
   `fechaVencimiento` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`idTarjetas`),
-  UNIQUE INDEX `numeroTarjeta_UNIQUE` (`numeroTarjeta` ASC) VISIBLE)
+  UNIQUE INDEX `numeroTarjeta_UNIQUE` (`numeroTarjeta` ASC) )
 ENGINE = InnoDB;
 
 
@@ -224,9 +224,9 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`Pagos` (
   `total` FLOAT NOT NULL,
   `idTarjeta` INT NOT NULL,
   PRIMARY KEY (`idPagos`),
-  INDEX `FK_PagoReserva_idx` (`idReserva` ASC) VISIBLE,
-  INDEX `FK_PagoTarjeta_idx` (`idTarjeta` ASC) VISIBLE,
-  UNIQUE INDEX `idReserva_UNIQUE` (`idReserva` ASC) VISIBLE,
+  INDEX `FK_PagoReserva_idx` (`idReserva` ASC) ,
+  INDEX `FK_PagoTarjeta_idx` (`idTarjeta` ASC) ,
+  UNIQUE INDEX `idReserva_UNIQUE` (`idReserva` ASC) ,
   CONSTRAINT `FK_PagoReserva`
     FOREIGN KEY (`idReserva`)
     REFERENCES `PetHero`.`Reservas` (`idReserva`)
@@ -249,8 +249,8 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`Factura` (
   `fechaFactura` DATE NOT NULL,
   `razonSocial` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idFactura`),
-  INDEX `FK_FacturaPago_idx` (`idPago` ASC) VISIBLE,
-  UNIQUE INDEX `idPago_UNIQUE` (`idPago` ASC) VISIBLE,
+  INDEX `FK_FacturaPago_idx` (`idPago` ASC) ,
+  UNIQUE INDEX `idPago_UNIQUE` (`idPago` ASC) ,
   CONSTRAINT `FK_FacturaPago`
     FOREIGN KEY (`idPago`)
     REFERENCES `PetHero`.`Pagos` (`idPagos`)
@@ -267,8 +267,8 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`UsuarioxTarjeta` (
   `idUsuario` INT NOT NULL,
   `idTarjeta` INT NOT NULL,
   PRIMARY KEY (`idUsuarioxTarjeta`),
-  INDEX `FK_UsuarioTarjeta_idx` (`idUsuario` ASC) VISIBLE,
-  INDEX `FK_TarjetaUsuario_idx` (`idTarjeta` ASC) VISIBLE,
+  INDEX `FK_UsuarioTarjeta_idx` (`idUsuario` ASC) ,
+  INDEX `FK_TarjetaUsuario_idx` (`idTarjeta` ASC) ,
   CONSTRAINT `FK_UsuarioTarjeta`
     FOREIGN KEY (`idUsuario`)
     REFERENCES `PetHero`.`Usuarios` (`idUsuario`)
@@ -281,6 +281,21 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`UsuarioxTarjeta` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `PetHero`.`SolicitudCambio`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PetHero`.`SolicitudCambio` (
+	`idSolicitudCambio` INT NOT NULL AUTO_INCREMENT,
+    `idUsuario` INT NOT NULL,
+    `fecha` DATETIME NOT NULL,
+    `estado` INT DEFAULT 0,
+    PRIMARY KEY(`idSolicitudCambio`),
+    CONSTRAINT `FK_SolicitudUsuario`
+		FOREIGN KEY(`idUsuario`)
+        REFERENCES `PetHero`.`Usuarios` (`idUsuario`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
