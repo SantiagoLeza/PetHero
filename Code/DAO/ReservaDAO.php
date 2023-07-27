@@ -21,7 +21,6 @@ class ReservaDAO
         {
             $this->connection = Connection::getInstance();
 
-            echo "1";
             $this->connection->ExecuteNonQuery($query, array(
                 "idGuardian" => $idGuardian,
                 "idAnimal" => $idAnimal,
@@ -30,7 +29,6 @@ class ReservaDAO
                 "precio" => $precio,
                 "estado" => $estado
             ));
-            echo "2";
             
         }
         catch(Exception $ex)

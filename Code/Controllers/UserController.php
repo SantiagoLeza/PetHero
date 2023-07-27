@@ -222,12 +222,12 @@ class UserController{
             $animal = $this->AnimalDAO->getAnimalByID($idAnimal);
 
             $estadoGuardian = $this->guardianDAO->GetEstadoGuardian($idGuardian, $fechaInicio, $fechaFin, $animal->getRaza(), $animal->getTamanio(), $idAnimal);
+
             if($estadoGuardian == 'OK'){
                 $this->reservaDAO->Add($idGuardian, $idAnimal, $fechaInicio, $fechaFin, $precio, 'Pendiente');
                 header("location: ".FRONT_ROOT."Home/Home/ReservaExitosa");
             }
             else{
-                $message = $estadoGuardian;
                 require_once(VIEWS_PATH."guardian-info.php");
             }
         }

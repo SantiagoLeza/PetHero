@@ -128,7 +128,7 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
                                     <p>No pagado</p>
     
                             <?php } else{ ?>
-                                        <p>No pagado</p>
+                                        <p>Pagado</p>
                                       <?php } ?>
                         </div>
                         <?php

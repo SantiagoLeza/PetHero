@@ -52,7 +52,6 @@ class Connection{
         try{
             $this->Prepare($query);
             $this->BindParameters($parameters, $queryType);
-            echo $query;
             $this->pdoStatement->execute();
             return $this->pdoStatement->rowCount();
         }
