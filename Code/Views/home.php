@@ -23,9 +23,7 @@ if(isset($message)){
             <button id="filtroFecha">
                 Filtrar por fecha
             </button>
-            <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por estrellas</a>
-            <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por precio</a>
-            <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Filtrar por ubicación</a>
+            <a href="<?php echo FRONT_ROOT.'Home/ShowGuardianList/' ?>">Mostrar Todos</a>
             <div id="boxFiltro">
                 <form action="<?php echo FRONT_ROOT.'Home/ShowGuardianList' ?>" method="post">
                     <p id="cerrarBox">X</p>

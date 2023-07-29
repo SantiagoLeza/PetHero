@@ -3,6 +3,8 @@ html, body{
     padding: 0;
     height: 100%;
     width: 100vw;
+    font-family: 'Work Sans', sans-serif;
+    font-size: small;
 }
 
 body{
@@ -17,9 +19,19 @@ body{
     overflow: auto;
 }
 
+.content{
+    margin-top: 20px;
+    background-color: #FCAA55;
+    border: rgb(0, 0, 0) 10px solid;
+    border-radius: 1rem;
+    max-width: 600px;
+    min-width: fit-content;
+}
+
 .content:first-child{
-    margin-top: 125px;
-    background-color: white;
+    margin-top: 140px;
+    margin-bottom: 15px;
+    /* background-color: white; */
     height: 100%;
     width: 60%;
     display: flex;
@@ -29,7 +41,7 @@ body{
 }
 
 .content > *:first-child{
-    margin-top: 25px;
+    margin-top: 40px;
 }
 
 form{
@@ -37,6 +49,7 @@ form{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 form > *{
@@ -46,12 +59,40 @@ form > *{
 .bn3{
     margin-top: 25px;
     margin-bottom: 25px;
-    background-color: #FCAA55;
-    border: none;
+    background-color: white;
+    border: rgb(0, 0, 0) 3px solid;
     border-radius: 1rem;
-    color: white;
+    color: #FCAA55;
     padding: 10px;
     width: 125px;
     font-size: large;
     font-weight: bold;
 }
+
+.bn3:disabled{
+    background-color: #3d3d3d;
+    border: rgb(255, 0, 0) 3px solid;
+    color: red;
+    cursor: not-allowed;
+}
+
+.content > p, form > div{
+    background-color: #ffffff;
+    border: rgb(0, 0, 0) 3px solid;
+    padding: 10px;
+    margin: 15px;
+    color: #000000;
+    font-weight: 900;
+    border-radius: 1rem;
+    width: 60%;
+    text-align: center;
+}
+
+/* .content > p{
+    width: 60%;
+    text-align: center;
+}
+
+form > div{
+    width: 75%;
+} */

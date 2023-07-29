@@ -7,21 +7,20 @@ require_once(CONFIG_PATH."CheckLog.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quieres ser guardian?</title>
+    <title>¿Quieres ser guardian?</title>
     <link rel="stylesheet" href="<?php echo CSS_PATH.'register-guardian.css' ?>">
 </head>
 <body>
     <div class="content">
-        <p>Desea ser guardian?</p>
-        <p>Es simple. Completa esta informacion</p>
+        <p>¿Desea ser guardian? <br> Es simple. Completa esta informacion</p>
         <form action="<?php echo FRONT_ROOT.'Guardian/Add' ?>" method="post">
             <div>
-                <label for="initialDate">Cuando puedes empezar a cuidar?</label>
+                <label for="initialDate">¿Cuando puedes empezar a cuidar?</label>
                 <input type="date" name="initialDate" id="initialDate" required>
             </div>
 
             <div>
-                <label for="finalDate">Cuando puedes dejaras de estar disponible?</label>
+                <label for="finalDate">¿Cuando puedes dejaras de estar disponible?</label>
                 <input type="date" name="finalDate" id="finalDate" required>
             </div>
 
@@ -56,10 +55,33 @@ require_once(CONFIG_PATH."CheckLog.php");
                 <textarea name="description" id="description" placeholder="Escribe aqui..." required></textarea>
             </div>
             
-            <button class="bn3" type="submit"> Ser Heroe </button>
+            <button class="bn3" type="submit" id="submitbutton"> Ser Heroe </button>
             
         </form>
     </div>
     <?php require_once(VIEWS_PATH."sidebar.php"); ?>
+    <script>
+        const submitbutton = document.getElementById('submitbutton');
+        const descripcion = document.getElementById('description');
+        const direccion = document.getElementById('address');
+
+        descripcion.addEventListener('keyup', function(){
+            if(descripcion.value.length > 150){
+                submitbutton.disabled = true;
+                alert('La descripcion no puede superar los 150 caracteres')
+            }else{
+                submitbutton.disabled = false;
+            }
+        })
+
+        direccion.addEventListener('keyup', function(){
+            if(direccion.value.length > 45){
+                submitbutton.disabled = true;
+                alert('La direccion no puede superar los 50 caracteres')
+            }else{
+                submitbutton.disabled = false;
+            }
+        })
+    </script>
 </body>
 </html>

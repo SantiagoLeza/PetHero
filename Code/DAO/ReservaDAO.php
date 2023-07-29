@@ -299,6 +299,7 @@ class ReservaDAO
         }
         catch(Exception $ex)
         {
+            
             throw $ex;
         }
     }

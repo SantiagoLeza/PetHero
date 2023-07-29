@@ -258,7 +258,7 @@ class UserController{
 
     public function PagarReserva($idReserva, $numeroTarjeta, $fechaVencimiento, $nombreTitular, $cvv, $monto){
         try{
-            
+
             $this->reservaDAO->PagarReserva($idReserva, $numeroTarjeta, $fechaVencimiento, $nombreTitular, $cvv, $monto);
 
             $this->guardianDAO->AddSaldo(
@@ -279,10 +279,10 @@ class UserController{
                 $reservation->getFechaFin(),
                 $nombreMascota
             );
-            header("location: ".FRONT_ROOT."User/ReservasView");
+            //header("location: ".FRONT_ROOT."User/ReservasView");
         }
         catch(Exception $ex){
-            header("location: ".FRONT_ROOT."Home/Home/Error");
+            //header("location: ".FRONT_ROOT."Home/Home/Error");
         }
     }
 
