@@ -13,8 +13,8 @@ class UserDAO{
         $this->connection = Connection::getInstance();
     }
 
-    public function Add($name, $lastName, $email, $password, $phone, $address, $city, $birthdate){
-        $query = "INSERT INTO Usuarios (nombre, apellido, mail, contrasenia, numeroTelefono, direccion, idCiudad, fechaDeNacimiento) VALUES (:name, :lastName, :email, :password, :phone, :address, :idCiudad, :birthdate);";
+    public function Add($name, $lastName, $mail, $password, $phoneNumber, $adress, $city, $birthDate){
+        $query = "INSERT INTO Usuarios (nombre, apellido, mail, contrasenia, numeroTelefono, direccion, idCiudad, fechaDeNacimiento) VALUES (:name, :lastName, :mail, :password, :phoneNumber, :adress, :idCiudad, :birthDate);";
 
         $ciudadDAO = new CiudadDAO();
         $idCiudad = $ciudadDAO->getCiudadByName($city)['idCiudades'];
@@ -24,12 +24,12 @@ class UserDAO{
             $connection->ExecuteNonQuery($query, array(
                 "name" => $name,
                 "lastName" => $lastName,
-                "email" => $email,
+                "mail" => $mail,
                 "password" => $password,
-                "phone" => $phone,
-                "address" => $address,
+                "phoneNumber" => $phoneNumber,
+                "adress" => $adress,
                 "idCiudad" => $idCiudad,
-                "birthdate" => $birthdate
+                "birthDate" => $birthDate
             ));
         }
         catch(Exception $ex){
@@ -72,6 +72,22 @@ class UserDAO{
         }
     }
 
+    public function getByPhoneNumber($phoneNumber){
+        try{
+            $ciudadDAO = new CiudadDAO();
+            $query = "SELECT * FROM Usuarios WHERE numeroTelefono = :phoneNumber";
+            $this->connection = Connection::getInstance();
+            $resultSet = $this->connection->Execute($query, array("phoneNumber" => $phoneNumber));
+            if(count($resultSet) == 0){
+                return null;
+            }
+            return $this->fetch($resultSet[0]);
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
+
     public function getById($id){
         try{
             $ciudadDAO = new CiudadDAO();
@@ -98,6 +114,7 @@ class UserDAO{
             throw $ex;
         }
     }
+
 
     private function fetch($row){
         if ($row == null){

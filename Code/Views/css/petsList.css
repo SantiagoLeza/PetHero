@@ -219,3 +219,16 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+.labelInputFoto{
+    margin: 10px;
+    font-size: medium !important;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    
+}

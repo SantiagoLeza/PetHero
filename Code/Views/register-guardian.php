@@ -1,5 +1,6 @@
 <?php
 require_once(CONFIG_PATH."CheckLog.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,12 +17,13 @@ require_once(CONFIG_PATH."CheckLog.php");
         <form action="<?php echo FRONT_ROOT.'Guardian/Add' ?>" method="post">
             <div>
                 <label for="initialDate">¿Cuando puedes empezar a cuidar?</label>
-                <input type="date" name="initialDate" id="initialDate" required>
+                <input type="date" name="initialDate" id="initialDate" required min=<?php $hoy=date("Y-m-d"); echo $hoy;?>>
             </div>
 
             <div>
+                
                 <label for="finalDate">¿Cuando puedes dejaras de estar disponible?</label>
-                <input type="date" name="finalDate" id="finalDate" required>
+                <input type="date" name="finalDate" id="finalDate" required  >
             </div>
 
             <div>
@@ -52,18 +54,23 @@ require_once(CONFIG_PATH."CheckLog.php");
             <div>
                 <label for="description">Describete</label>
                 <br>
-                <textarea name="description" id="description" placeholder="Escribe aqui..." required></textarea>
+                <textarea name="description" id="description" placeholder="Escribe aqui..." required ></textarea>
             </div>
             
             <button class="bn3" type="submit" id="submitbutton"> Ser Heroe </button>
             
         </form>
     </div>
+    
     <?php require_once(VIEWS_PATH."sidebar.php"); ?>
     <script>
         const submitbutton = document.getElementById('submitbutton');
         const descripcion = document.getElementById('description');
         const direccion = document.getElementById('address');
+        const fechaFin = document.getElementById('finalDate');
+        const fechaInicio = document.getElementById('initialDate');
+
+
 
         descripcion.addEventListener('keyup', function(){
             if(descripcion.value.length > 150){

@@ -94,12 +94,18 @@ require_once(CONFIG_PATH."CheckLog.php");
             </div>
             <div>
                 <label>Archivos</label>
+                
+                <label for="imagenAnimal" class="labelInputFoto">Foto animal</label>
                 <input type="file" name="imagenAnimal" id="imagenAnimal" required
-                accept=".jpg, .png, .jpeg, image/*">
+                accept=".jpg, .png, .jpeg, image/*" style="visibility:hidden;">
+
+                <label for="imagenCarta" class="labelInputFoto">Carta de vacunacion</label>
                 <input type="file" name="imagenCarta" id="imagenCarta"
-                accept=".jpg, .png, .jpeg, image/*" required>
+                accept=".jpg, .png, .jpeg, image/*" style="visibility:hidden;" required>
+                
+                <label for="video" class="labelInputFoto">Video animal</label>
                 <input type="file" name="video"
-                accept="video/*">
+                accept="video/ *" style="visibility:hidden;" >
             </div>
             <div>
                 <label for="observaciones">Observaciones</label>

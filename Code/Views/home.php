@@ -29,13 +29,14 @@ if(isset($message)){
                     <p id="cerrarBox">X</p>
                     <div>
                         <label for="fechaInicio">Fecha de inicio</label>
-                        <input type="date" name="fechaInicio" id="fechaInicio">
+                        <input type="date" name="fechaInicio" id="fechaInicio" required min=<?php $hoy=date("Y-m-d"); echo $hoy;?>>
                     </div>
                     
                     <div>
                         <label for="fechaFin">Fecha de fin</label>
-                        <input type="date" name="fechaFin" id="fechaFin">
+                        <input type="date" name="fechaFin" id="fechaFin" required>
                     </div>
+                    <script src="<?php echo JS_PATH.'home.js' ?>"></script>
                     <input id="buscarButton" type="submit" value="Buscar"></input>
                 </form>
             </div>
