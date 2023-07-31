@@ -1,0 +1,110 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ff9500; /* Naranja */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+header {
+    background-color: #ff9500; /* Naranja */
+    color: #fff; /* Blanco */
+    padding: 10px;
+    text-align: center;
+    animation: fadeInDown 0.6s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    margin: 0;
+}
+
+/* Estilos para el formulario */
+.form {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff; /* Blanco */
+    border: 1px solid #ff9500; /* Naranja */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #ff9500; /* Naranja */
+    color: #fff; /* Blanco */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #ff6f00; /* Naranja más oscuro al hacer hover */
+}
+
+/* Estilos para la sección */
+.section {
+    margin: 40px 0;
+    padding: 20px;
+    background-color: #fff; /* Blanco */
+    border: 1px solid #ff9500; /* Naranja */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.6s ease;
+}
+
+.section h2 {
+    color: #ff9500; /* Naranja */
+}
+
+.section p {
+    color: #333; /* Texto más oscuro */
+}
+
+ul {
+    color: #666; /* Texto más claro */
+    margin-left: 20px;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}

@@ -212,9 +212,9 @@ class ReservaDAO
     }
 
     public function checkReservas(){
-        $query1 = "UPDATE Reservas SET estado = 'En curso' WHERE estado = 'Aceptado' && fechaInicio <= CURDATE()";
+        $query1 = "UPDATE Reservas SET estado = 'En curso' WHERE estado = 'Aceptado' AND fechaInicio <= CURDATE()";
 
-        $query2 = "UPDATE Reservas SET estado = 'Finalizado' WHERE estado = 'En curso' && fechaFin <= CURDATE()";
+        $query2 = "UPDATE Reservas SET estado = 'Finalizado' WHERE estado = 'En curso' AND fechaFin <= CURDATE()";
 
         try
         {

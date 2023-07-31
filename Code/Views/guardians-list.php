@@ -21,13 +21,14 @@ if(!isset($guardians)){
             <div class="card">
                 <div class="card-header">
                     <h2><?php echo $guardian->getName(); ?></h2>
+                    <h2><?php echo $guardian->getSurName() ; ?></h2>
                 </div>
                 <div class="card-body">
                     <p><?php echo $guardian->getDescripcion(); ?></p>
                 </div>
                 <div class="card-footer">
-                    <p><?php echo $guardian->getFechaInicio(); ?></p>
-                    <p><?php echo $guardian->getFechaFin(); ?></p>
+                    <p><?php echo "Desde: ". $guardian->getFechaInicio();?></p>
+                    <p><?php echo "Hasta: ". $guardian->getFechaFin(); ?></p>
                     <p><?php echo $guardian->getTamanio(); ?></p>
                     <p><?php echo $guardian->getRating(); ?></p>
                 </div>

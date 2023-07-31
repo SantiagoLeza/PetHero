@@ -193,18 +193,30 @@ class UserController{
                 require_once(VIEWS_PATH."signup.php");
             }
             else{
-                if($this->userDAO->GetByMail($mail) == null){
-                    if($password == $repeatPassword){
-                        $this->Add($mail, $password, $name, $lastname, $phoneNumber, $birthDate, $city, $adress);
-                        $_SESSION["loggedUser"] = $this->userDAO->GetByMail($mail);
-                        header("location: ".FRONT_ROOT."Home/Home");
+                if($this->userDAO->GetByMail($mail) == null)
+                {
+                    if($this->userDAO->getByPhoneNumber($phoneNumber) == null)
+                    {
+                        if($password == $repeatPassword)
+                        {
+                            $this->Add($mail, $password, $name, $lastname, $phoneNumber, $birthDate, $city, $adress);
+                            $_SESSION["loggedUser"] = $this->userDAO->GetByMail($mail);
+                            header("location: ".FRONT_ROOT."Home/Home");
+                        }
+                        else
+                        {
+                            $message = "Las contraseñas no coinciden";
+                            require_once(VIEWS_PATH."signup.php");
+                        }
                     }
-                    else{
-                        $message = "Las contraseñas no coinciden";
+                    else
+                    {
+                        $message = "El numero de telefono ya existe";
                         require_once(VIEWS_PATH."signup.php");
                     }
                 }
-                else{
+                else
+                {
                     $message = "El usuario ya existe";
                     require_once(VIEWS_PATH."signup.php");
                 }
@@ -279,10 +291,10 @@ class UserController{
                 $reservation->getFechaFin(),
                 $nombreMascota
             );
-            //header("location: ".FRONT_ROOT."User/ReservasView");
+            header("location: ".FRONT_ROOT."User/ReservasView");
         }
         catch(Exception $ex){
-            //header("location: ".FRONT_ROOT."Home/Home/Error");
+            header("location: ".FRONT_ROOT."Home/Home/Error");
         }
     }
 
