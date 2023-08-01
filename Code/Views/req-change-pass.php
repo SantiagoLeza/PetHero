@@ -12,10 +12,6 @@ if (!empty($message)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Hero</title>
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>changePass.css">
-    <style>
-        /* Aquí va el contenido del archivo changePass.css */
-        /* ... (copia y pega el contenido del archivo changePass.css aquí) ... */
-    </style>
 </head>
 <body>
     <header>
