@@ -105,6 +105,21 @@ class ChatDao
         return $mensaje;
     }
 
+    public function nuevo_mensaje($texto, $idUsuario, $idGuardian){
+       
+        $query = "call nuevo_mensaje (:texto, :idUsuario, :idGuardian, true)";
+        try{
+            $connection = Connection::getInstance();
+            $connection->ExecuteNonQuery($query, array(
+                "texto" => $texto,
+                "idUsuario" => $idUsuario,
+                "idGuardian" => $idGuardian
+            ));
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
 }
 
 

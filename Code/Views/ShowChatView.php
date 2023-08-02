@@ -112,8 +112,8 @@
 
         setInterval(() => {
             if(selectedId !== -1){
-                // chat = getMesajesByChatId(selectedId);
-                // updateElementMensajes(chat);
+                chat = getMesajesByChatId(selectedId);
+                updateElementMensajes(chat);
             }
         }, 1000);
 

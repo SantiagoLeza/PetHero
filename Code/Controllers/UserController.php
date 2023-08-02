@@ -363,4 +363,24 @@ class UserController{
         }
     }
 
+    public function nuevo_mensaje(){
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+
+        if(!isset($data['mensaje']) || !isset($data['idGuardian'])){
+            header("location: ".FRONT_ROOT."Home/Index/Error");
+        };
+        
+        try{
+            $this->chatDAO->nuevo_mensaje(
+                $data['mensaje'],
+                $_SESSION['loggedUser']->getIdUsuario(),
+                $data['idGuardian']
+            );
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Index/Error");
+        }
+    }
+
 }

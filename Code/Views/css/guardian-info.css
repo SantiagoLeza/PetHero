@@ -256,14 +256,52 @@ body{
 }
 
 #boxMensaje{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.2);
-    color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#inputMensaje{
+  width: 60%;
+  height: 40%;
+  border-radius: 1rem;
+  border: none;
+  padding: 10px;
+  font-size: larger;
+  resize: none;
+}
+
+#mandarMensaje{
+  margin-top: 25px;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: white;
+  border: none;
+  color: #FCAA55;
+  font-weight: bold;
+  font-size: larger;
+  cursor: pointer;
+}
+
+#formMensaje{
+  margin-top: 150px;
+  background-color: #FCAA55;
+  border-radius: 1rem;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: larger;
 }
