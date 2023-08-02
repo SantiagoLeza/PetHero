@@ -297,6 +297,42 @@ CREATE TABLE IF NOT EXISTS `PetHero`.`SolicitudCambio` (
         ON UPDATE NO ACTION
 );
 
+-- -----------------------------------------------------
+-- Table `PetHero`.`Chat`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PetHero`.`Chat` (
+  `idChat` INT NOT NULL AUTO_INCREMENT,
+  `idDuenio` INT NOT NULL,
+  `idGuardian` INT NOT NULL,
+  PRIMARY KEY (`idChat`),
+  INDEX `chat_duenio_idx` (`idDuenio` ASC) VISIBLE,
+  INDEX `chat_guardian_idx` (`idGuardian` ASC) VISIBLE,
+  CONSTRAINT `chat_duenio`
+    FOREIGN KEY (`idDuenio`)
+    REFERENCES `PetHero`.`Usuarios` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `chat_guardian`
+    FOREIGN KEY (`idGuardian`)
+    REFERENCES `PetHero`.`Usuarios` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+-- -----------------------------------------------------
+-- Table `PetHero`.`Mensaje`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PetHero`.`Mensaje` (
+  `idMensaje` INT NOT NULL AUTO_INCREMENT,
+  `idRemitente` INT NOT NULL,
+  `texto` VARCHAR(250) NOT NULL,
+  `idChat` INT NOT NULL,
+  PRIMARY KEY (`idMensaje`),
+	FOREIGN KEY (`idChat`)
+    REFERENCES `PetHero`.`Chat` (`idChat`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

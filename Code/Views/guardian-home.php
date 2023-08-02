@@ -32,10 +32,11 @@ if(!$this->guardianDAO->isGuardian($guardian->getIdUsuario())){
             </div>
             <div>
                 <input type="date" name="fechaInicio" id="fechaInicio" required
-                value="<?php echo $guardian->getFechaInicio(); ?>">
+                value="<?php echo $guardian->getFechaInicio(); ?>" min=<?php $hoy=date("Y-m-d"); echo $hoy;?>>
                 <input type="date" name="fechaFin" id="fechaFin" required
-                value="<?php echo $guardian->getFechaFin(); ?>">
+                value="<?php echo $guardian->getFechaFin(); ?>" min=<?php $hoy=date("Y-m-d"); echo $hoy;?>>
             </div>
+            <script src="<?php echo JS_PATH.'home.js' ?>"></script>
             <button type="submit">Aplicar</button>
         </form>
         

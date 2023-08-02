@@ -37,6 +37,10 @@
                     <img src="<?php echo IMG_PATH.'cucha.png'?>" alt="Guardian">
                     <p>Guardian</p>
                 </a>
+                <a href="<?php echo FRONT_ROOT.'User/ShowChatView' ?>">
+                    <img src="<?php echo IMG_PATH.'chat.png'?>" alt="Guardian">
+                    <p>Chat</p>
+                </a>
             </div>
             <a href="<?php echo FRONT_ROOT.'User/Logout' ?>" class="logoutButton">
                 <img src="<?php echo IMG_PATH.'logoutIcon.png' ?>" alt="Logout">

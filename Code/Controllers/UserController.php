@@ -22,6 +22,8 @@ use DAO\CiudadDAO as CiudadDAO;
 
 use DAO\SolicitudCambioDAO as SolicitudCambioDAO;
 
+use DAO\ChatDAO as ChatDAO;
+
 use Controllers\MailController as MailController;
 
 class UserController{
@@ -42,6 +44,7 @@ class UserController{
         $this->archivosDAO = new ArchivosDAO();
         $this->ciudadDAO = new CiudadDAO();
         $this->solicitudDAO = new SolicitudCambioDAO();
+        $this->chatDAO = new ChatDAO();
 
         $this->mailController = new MailController();
     }
@@ -227,6 +230,26 @@ class UserController{
         }
     }
 
+    public function ShowChatView(){
+        try{
+            $chat = $this->chatDAO->GetChatsByUser($_SESSION['loggedUser']->getIdUsuario());
+            require_once(VIEWS_PATH."ShowChatView.php");
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Index/Error");
+        }
+    }
+
+    public function GetMensajesByChatId($idChat){
+        try{
+            $mensajes = $this->chatDAO->GetMensajesByChatId($idChat);
+            echo json_encode($mensajes);
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Index/Error");
+        }
+    }
+
     public function Reservar($fechaInicio, $fechaFin, $idAnimal, $idGuardian, $precio){
         
         try{
@@ -315,6 +338,21 @@ class UserController{
                 $message = "Las contraseñas no coinciden";
                 require_once(VIEWS_PATH."change-pass.php");
             }
+        }
+        catch(Exception $ex){
+            header("location: ".FRONT_ROOT."Home/Index/Error");
+        }
+    }
+
+    //make a funtion called addMensaje that takes two values via post using $_POST variable (mensaje, idChat) and adds it to the database
+    public function addMensaje(){
+        if(!isset($_POST['mensaje']) || !isset($_POST['idChat'])){
+            header("location: ".FRONT_ROOT."Home/Index/Error");
+        };
+        $mensaje = $_POST['mensaje'];
+        $idChat = $_POST['idChat'];
+        try{
+            $this->chatDAO->addMensaje($mensaje, $idChat);
         }
         catch(Exception $ex){
             header("location: ".FRONT_ROOT."Home/Index/Error");

@@ -104,7 +104,7 @@ require_once(CONFIG_PATH."CheckLog.php");
                 accept=".jpg, .png, .jpeg, image/*" style="visibility:hidden;" required>
                 
                 <label for="video" class="labelInputFoto">Video animal</label>
-                <input type="file" name="video"
+                <input type="file" name="video" id="video"
                 accept="video/ *" style="visibility:hidden;" >
             </div>
             <div>
