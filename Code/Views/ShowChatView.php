@@ -59,7 +59,6 @@
             let mensajesContainer = document.getElementById("mensajesContainer");
             for (let i = 0; i < data.length; i++) {
                 let div = document.createElement("div");
-                // div.innerHTML = data[i].nombreDuenio + " y " + data[i].nombreGuardian + " - " + "(guardian)";
                 if(data[i].idDuenio == <?php echo $_SESSION["loggedUser"]->getIdUsuario(); ?>){
                     div.innerHTML = data[i].nombreGuardian + " - " + "(guardian)";
                 }
@@ -70,6 +69,7 @@
                     selectedId = data[i].chatId;
                     chat = getMesajesByChatId(selectedId);
                     updateElementMensajes(chat);
+                    mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
                 });
                 chatContainer.appendChild(div);
                 mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
