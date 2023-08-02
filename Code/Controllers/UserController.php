@@ -346,13 +346,17 @@ class UserController{
 
     //make a funtion called addMensaje that takes two values via post using $_POST variable (mensaje, idChat) and adds it to the database
     public function addMensaje(){
-        if(!isset($_POST['mensaje']) || !isset($_POST['idChat'])){
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+
+        if(!isset($data['mensaje']) || !isset($data['idChat'])){
             header("location: ".FRONT_ROOT."Home/Index/Error");
         };
-        $mensaje = $_POST['mensaje'];
-        $idChat = $_POST['idChat'];
+        $idRemitente = $_SESSION['loggedUser']->getIdUsuario();
+        $mensaje = $data['mensaje'];
+        $idChat = $data['idChat'];
         try{
-            $this->chatDAO->addMensaje($mensaje, $idChat);
+            $this->chatDAO->sendMensaje($idRemitente, $mensaje, $idChat);
         }
         catch(Exception $ex){
             header("location: ".FRONT_ROOT."Home/Index/Error");

@@ -58,13 +58,18 @@ if(isset($message)){
                         </div>
                     </div>
                 </div>
-                <?php
-                if($guardian->getIdUsuario() != $_SESSION['loggedUser']->getIdUsuario()){ ?>
-                    <button id="botonReserva" class='bn53'>Reservar</button>
-                <?php }
-                else{
-                    echo '<button id="botonReserva" class="hide"></button>';
-                } ?>
+                <div class="botones">
+                    <?php
+                    if($guardian->getIdUsuario() != $_SESSION['loggedUser']->getIdUsuario()){ ?>
+                        <button id="botonReserva" class='bn53'>Reservar</button>
+                    <?php }
+                    else{
+                        echo '<button id="botonReserva" class="hide"></button>';
+                    } ?>
+                    <button id="chat">
+                        <img src="<?php echo IMG_PATH . 'chat.png' ?>" >
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -99,6 +104,11 @@ if(isset($message)){
             <input type="hidden" name="idGuardian" value="<?php echo $guardian->getIdGuardian() ?>">
             <input type="hidden" name="precio" value="<?php echo $guardian->getPrecio() ?>">
             <button type="submit" class="submit">Reservar</button>
+        </form>
+    </div>
+    <div id="boxMensaje">
+        <form id="formMensaje">
+            <input type="text" id="inputMensaje">
         </form>
     </div>
 

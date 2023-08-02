@@ -1,0 +1,116 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fdd6aa; /* Naranja suave */
+    color: #333; /* Color de texto más oscuro */
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    margin-top: 150px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+h1 {
+    color: #ff9500; /* Naranja */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el formulario */
+#inputMensajeForm {
+    display: flex;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px; /* Bordes redondeados a la izquierda */
+}
+
+button {
+    background-color: #ff9500; /* Naranja */
+    color: #fff; /* Blanco */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0 5px 5px 0; /* Bordes redondeados a la derecha */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #ff6f00; /* Naranja más oscuro al hacer hover */
+}
+
+/* Estilos para el contenedor de chats */
+#chatContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Alinea los chats a la izquierda */
+}
+
+#chatContainer > div {
+    flex: 0 0 50%; /* Dos columnas */
+    padding: 10px;
+    border: 1px solid #ff9500; /* Naranja */
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#chatContainer > div:hover {
+    background-color: #fff; /* Blanco al hacer hover */
+}
+
+/* Estilos para el contenedor de mensajes */
+#mensajesContainer {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ff9500; /* Naranja */
+    background-image: url(../img/fondoPerro.jpg);
+    background-size: 400px;
+    background-repeat: repeat;
+    border-radius: 10px;
+    width: 60vw;
+    height: 60vh;
+    overflow-y: scroll;
+}
+
+#mensajesContainer > div {
+    padding: 10px;
+}
+
+.mensaje-usuario{
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mensaje-entrante > p, .mensaje-usuario > p{
+    margin: 0;
+    width: fit-content;
+    background-color: #ff9500; /* Blanco */
+    border: 1px solid #000000; /* Naranja */
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+}
+
+.mensaje-entrante{
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Resto de tus estilos para la sección... */
+
+@media screen and (max-width: 800px) {
+    /* Resto de tus reglas @media... */
+}

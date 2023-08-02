@@ -27,14 +27,12 @@ class ChatDao
     }
 
     public function GetChatsByUser($userId){
-        $sql = "select Chat.idChat, CONCAT (U1.nombre, ' ', U1.apellido) as 'NombreDuenio', CONCAT (U2.nombre, ' ', U2.apellido) as 'NombreGuardian'
+        $sql = "select Chat.idChat, U1.idUsuario as 'idDuenio', CONCAT (U1.nombre, ' ', U1.apellido) as 'NombreDuenio', U2.idUsuario as 'idGuardian', CONCAT (U2.nombre, ' ', U2.apellido) as 'NombreGuardian'
                 from Chat
                 join Usuarios as U1
                 on Chat.idDuenio = U1.idUsuario
                 join Usuarios as U2
                 on Chat.idGuardian = U2.idUsuario
-                join Mensaje
-                on Mensaje.idChat = Chat.idChat
                 where Chat.idDuenio = :userId or
                 Chat.idGuardian = :userId
                 ;";
@@ -54,7 +52,9 @@ class ChatDao
     private function fetch($row){
         $chat = array(
             "chatId" => $row["idChat"],
+            "idDuenio" => $row["idDuenio"],
             "nombreDuenio" => ($row["NombreDuenio"]),
+            "idGuardian" => $row["idGuardian"],
             "nombreGuardian" => ($row["NombreGuardian"])
         );
         return $chat;
@@ -78,7 +78,7 @@ class ChatDao
         }
     }
 
-    public function sendMensaje($texto, $idChat){
+    public function sendMensaje($idRemitente, $texto, $idChat){
         $sql = "insert into Mensaje (idRemitente, texto, idChat)
                 values (:idRemitente, :texto, :idChat)
                 ;";
@@ -86,12 +86,12 @@ class ChatDao
         try{
             $this->connection = Connection::getInstance();
             return $this->connection->ExecuteNonQuery($sql, array(
-                "idRemitente" => $_SESSION["loggedUser"]->getId(),
+                "idRemitente" => $idRemitente,
                 "texto" => $texto,
                 "idChat" => $idChat
             ));
         }catch(Exception $ex){
-            throw $ex;
+            //throw $ex;
         }
     }
 

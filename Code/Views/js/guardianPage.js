@@ -11,3 +11,15 @@ botonReserva.addEventListener('click', () => {
 });
 
 boxReservar.classList.add('hide');
+
+const chatButton = document.getElementById('chat');
+const boxMensaje = document.getElementById('boxMensaje');
+const formMensaje = document.getElementById('formMensaje');
+const inputMensaje = document.getElementById('inputMensaje');
+
+chatButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    boxMensaje.classList.remove('hide');
+});
+
+boxMensaje.classList.add('hide');

@@ -1,27 +1,32 @@
 <?php
-    // require_once(VIEWS_PATH."sidebar.php");
+    require_once(VIEWS_PATH."sidebar.php");
     $chats = json_encode($chat);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Chats</title>
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>chats.css">
 </head>
 <body>
     <div id="content">
-        <h1>Chats</h1>
-        <div id="chatContainer">
+        <div>
+            <h1>Chats</h1>
+            <div id="chatContainer">
 
+            </div>
         </div>
 
-        <h1>Mensajes</h1>
-        <div id="mensajesContainer">
+        <div>
+            <h1>Mensajes</h1>
+            <div id="mensajesContainer">
 
+            </div>
+            <form id="inputMensajeForm">
+                <input type="text" name="inputMensaje" id="inputMensaje">
+            </form>
         </div>
-        <form id="inputMensajeForm">
-            <input type="text" name="inputMensaje" id="inputMensaje">
-        </form>
     </div>
     <script>
         var chats = <?php echo $chats; ?>;
@@ -51,15 +56,23 @@
 
         function createElementTable(data){
             let chatContainer = document.getElementById("chatContainer");
+            let mensajesContainer = document.getElementById("mensajesContainer");
             for (let i = 0; i < data.length; i++) {
                 let div = document.createElement("div");
-                div.innerHTML = data[i].nombreDuenio + " - " + data[i].nombreGuardian;
+                // div.innerHTML = data[i].nombreDuenio + " y " + data[i].nombreGuardian + " - " + "(guardian)";
+                if(data[i].idDuenio == <?php echo $_SESSION["loggedUser"]->getIdUsuario(); ?>){
+                    div.innerHTML = data[i].nombreGuardian + " - " + "(guardian)";
+                }
+                else{
+                    div.innerHTML = data[i].nombreDuenio + " - " + "(duenio)";
+                }
                 div.addEventListener("click", function(){
                     selectedId = data[i].chatId;
                     chat = getMesajesByChatId(selectedId);
                     updateElementMensajes(chat);
                 });
                 chatContainer.appendChild(div);
+                mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
             }
         }
 
@@ -67,8 +80,16 @@
             let mensajesContainer = document.getElementById("mensajesContainer");
             for (let i = 0; i < data.length; i++) {
                 let div = document.createElement("div");
-                div.innerHTML = data[i].texto;
+                let p = document.createElement("p");
+                p.innerHTML = data[i].texto;
+                div.appendChild(p);
                 mensajesContainer.appendChild(div);
+                if(data[i].idRemitente == <?php echo $_SESSION["loggedUser"]->getIdUsuario(); ?>){
+                    div.classList.add("mensaje-usuario");
+                }
+                else{
+                    div.classList.add("mensaje-entrante");
+                }
             }
         }
 
@@ -89,27 +110,35 @@
             }
         }
 
-        createElementTable(chats);
-
         setInterval(() => {
             if(selectedId !== -1){
-                chat = getMesajesByChatId(selectedId);
-                updateElementMensajes(chat);
+                // chat = getMesajesByChatId(selectedId);
+                // updateElementMensajes(chat);
             }
-            console.log(chat);
-        }, 5000);
+        }, 1000);
 
         
 
         function addMensaje(mensaje, idChat){
-            //send a post request to local host port 3000 on the route /User/sendMensaje with the given parameters
-            var request = new XMLHttpRequest();
-            request.open('POST', 'http://localhost:3000/User/addMensaje', false);  // `false` makes the request synchronous
-            request.setRequestHeader("Content-Type", "application/json");
-            request.send(JSON.stringify({mensaje: mensaje, idChat: idChat}));
+            fetch('http://localhost:3000/User/addMensaje', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    mensaje: mensaje,
+                    idChat: idChat
+                }),
+            })
+            .then(data => {
+                chat = getMesajesByChatId(selectedId);
+                updateElementMensajes(chat);
+                let mensajesContainer = document.getElementById("mensajesContainer");
+                mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
+            })
         }
 
-        
+        createElementTable(chats);
     </script>
 </body>
 </html>
